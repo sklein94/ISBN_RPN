@@ -97,13 +97,13 @@ public class ISBNTest {
     public void getChecksum() throws Exception {
 
         ISBN IsbnLine = new ISBN("978-3-12-732320-7");
-        //assertEquals(7, IsbnLine.getChecksum(IsbnLine.getISBN()));
+        assertEquals(7, IsbnLine.getChecksum(IsbnLine.getISBN()));
 
         ISBN IsbnSpace = new ISBN("978312  7323207");
-        //assertEquals(7, IsbnSpace.getChecksum(IsbnSpace.getISBN()));
+        assertEquals(7, IsbnSpace.getChecksum(IsbnSpace.getISBN()));
 
         ISBN IsbnOtherChecksum = new ISBN("978-3-22-732320-6");
-        //assertEquals(6, IsbnOtherChecksum.getChecksum(IsbnOtherChecksum.getISBN()));
+        assertEquals(6, IsbnOtherChecksum.getChecksum(IsbnOtherChecksum.getISBN()));
     }
 
     public static String errorMessage(String method, ISBN Isbn) {

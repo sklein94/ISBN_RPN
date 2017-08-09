@@ -110,7 +110,8 @@ public class ISBN {
         int checksum = -1;
 
 
-        if (Isbn.length() == 13) {
+
+        if (Isbn_Checksum.length() == 13) {
             for (int i = 1; i <= length; i++) {
                 int value = Isbn_Checksum.charAt(i - 1) - 48;
                 if ((i % 2) != 0) {
