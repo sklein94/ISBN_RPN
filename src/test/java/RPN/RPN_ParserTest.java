@@ -8,38 +8,39 @@ public class RPN_ParserTest {
 
     @Test
     public void calculatesCorrect(){
-        RPN_Parser rpnCalculatesCorrectResultAddition = new RPN_Parser("1 2 +");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectResultAddition),3, rpnCalculatesCorrectResultAddition.numberOfOperands());
+
+        RPN_Parser rpnCalculatesCorrectAddition = new RPN_Parser("1 2 +");
+        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectAddition),3, rpnCalculatesCorrectAddition.numberOfOperands());
 
         RPN_Parser rpnCalculatesCorrectSubstraction = new RPN_Parser("1 2 -");
         assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),-1, rpnCalculatesCorrectSubstraction.numberOfOperands());
 
         RPN_Parser rpnCalculatesCorrectMultiplication = new RPN_Parser("3 2 *");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),6, rpnCalculatesCorrectSubstraction.numberOfOperands());
+        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectMultiplication),6, rpnCalculatesCorrectMultiplication.numberOfOperands());
 
         RPN_Parser rpnCalculatesCorrectDivision = new RPN_Parser("6 2 /");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),3, rpnCalculatesCorrectSubstraction.numberOfOperands());
+        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectDivision),3, rpnCalculatesCorrectDivision.numberOfOperands());
 
         RPN_Parser rpnCalculatesCorrectModulo = new RPN_Parser("10 3 %");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),1, rpnCalculatesCorrectSubstraction.numberOfOperands());
+        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectModulo),1, rpnCalculatesCorrectModulo.numberOfOperands());
 
         RPN_Parser rpnCalculatesCorrectFaculty = new RPN_Parser("10 !");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),3628800, rpnCalculatesCorrectSubstraction.numberOfOperands());
+        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectFaculty),3628800, rpnCalculatesCorrectFaculty.numberOfOperands());
 
         RPN_Parser rpnCalculatesCorrectPotency = new RPN_Parser("3 2 pow");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),9, rpnCalculatesCorrectSubstraction.numberOfOperands());
+        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectPotency),9, rpnCalculatesCorrectPotency.numberOfOperands());
 
         RPN_Parser rpnCalculatesCorrectSqrt = new RPN_Parser("4 sqrt");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),2, rpnCalculatesCorrectSubstraction.numberOfOperands());
+        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSqrt),2, rpnCalculatesCorrectSqrt.numberOfOperands());
 
         RPN_Parser rpnCalculatesCorrectSqr = new RPN_Parser("2 sqr");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),4, rpnCalculatesCorrectSubstraction.numberOfOperands());
+        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSqr),4, rpnCalculatesCorrectSqr.numberOfOperands());
 
         RPN_Parser rpnCalculatesComplexA = new RPN_Parser("1 2 + 3 *");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),9, rpnCalculatesCorrectSubstraction.numberOfOperands());
+        assertEquals(this.errorMessage("parse()", rpnCalculatesComplexA),9, rpnCalculatesComplexA.numberOfOperands());
 
         RPN_Parser rpnCalculatesComplexB = new RPN_Parser("1 2 + 3 * 1 + 5 / 2 - 4 + sqrt sqr");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),4, rpnCalculatesCorrectSubstraction.numberOfOperands());
+        assertEquals(this.errorMessage("parse()", rpnCalculatesComplexB),4, rpnCalculatesComplexB.numberOfOperands());
     }
 
     @Test
@@ -79,7 +80,14 @@ public class RPN_ParserTest {
         assertTrue(this.errorMessage("stringToParseIsValid()", rpnValidMultipleOperatorsWithOperatorsAtTheEnd), RPN_Parser.validStringToParse(rpnValidMultipleOperatorsWithOperatorsAtTheEnd));
 
         RPN_Parser rpnValidMultipleOperatorsWithOperatorsAtTheEndAndInMiddle = new RPN_Parser("1 2 +  3 4 + +");
-        assertFalse(this.errorMessage("stringToParseIsValid()", rpnValidMultipleOperatorsWithOperatorsAtTheEndAndInMiddle), RPN_Parser.validStringToParse(rpnValidMultipleOperatorsWithOperatorsAtTheEndAndInMiddle));
+        assertTrue(this.errorMessage("stringToParseIsValid()", rpnValidMultipleOperatorsWithOperatorsAtTheEndAndInMiddle), RPN_Parser.validStringToParse(rpnValidMultipleOperatorsWithOperatorsAtTheEndAndInMiddle));
+
+        RPN_Parser rpnValidMultipleOperatorsWithNegativeValuesA = new RPN_Parser("-1 2 +  -3 -4 + +");
+        assertTrue(this.errorMessage("stringToParseIsValid()", rpnValidMultipleOperatorsWithNegativeValuesA), RPN_Parser.validStringToParse(rpnValidMultipleOperatorsWithNegativeValuesA));
+
+        RPN_Parser rpnValidMultipleOperatorsWithNegativeValuesB = new RPN_Parser("-1 -2 -  +3 4 - +");
+        assertTrue(this.errorMessage("stringToParseIsValid()", rpnValidMultipleOperatorsWithNegativeValuesB), RPN_Parser.validStringToParse(rpnValidMultipleOperatorsWithNegativeValuesB));
+
 
     }
 
@@ -110,6 +118,12 @@ public class RPN_ParserTest {
 
         RPN_Parser rpnInvalidAdditionIllegalCharacterB = new RPN_Parser("1 2 + #asdf");
         assertFalse(this.errorMessage("stringToParseIsValid()", rpnInvalidAdditionIllegalCharacterB), RPN_Parser.validStringToParse(rpnInvalidAdditionIllegalCharacterB));
+
+        RPN_Parser rpnInvalidAdditionIllegalCharacterC = new RPN_Parser("1 2 + srqt");
+        assertFalse(this.errorMessage("stringToParseIsValid()", rpnInvalidAdditionIllegalCharacterC), RPN_Parser.validStringToParse(rpnInvalidAdditionIllegalCharacterC));
+
+        RPN_Parser rpnInvalidAdditionIllegalCharacterD = new RPN_Parser("1 2 + srttqq");
+        assertFalse(this.errorMessage("stringToParseIsValid()", rpnInvalidAdditionIllegalCharacterD), RPN_Parser.validStringToParse(rpnInvalidAdditionIllegalCharacterD));
 
     }
 
@@ -160,7 +174,7 @@ public class RPN_ParserTest {
 
     @Test
     public void checkRPNgetCharactersCorrect(){
-        RPN_Parser rpnGetCharactersCorrect = new RPN_Parser("1 55 +  - * / ^ ! % 255");
+        RPN_Parser rpnGetCharactersCorrect = new RPN_Parser("1 55 +  - * / ^ ! % 255 sqrt sqr ! sqrt pow");
         assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"1", rpnGetCharactersCorrect.getNextOperatorOrOperand());
         assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"55", rpnGetCharactersCorrect.getNextOperatorOrOperand());
         assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"+", rpnGetCharactersCorrect.getNextOperatorOrOperand());
@@ -171,6 +185,11 @@ public class RPN_ParserTest {
         assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"!", rpnGetCharactersCorrect.getNextOperatorOrOperand());
         assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"%", rpnGetCharactersCorrect.getNextOperatorOrOperand());
         assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"255", rpnGetCharactersCorrect.getNextOperatorOrOperand());
+        assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"sqrt", rpnGetCharactersCorrect.getNextOperatorOrOperand());
+        assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"sqr", rpnGetCharactersCorrect.getNextOperatorOrOperand());
+        assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"!", rpnGetCharactersCorrect.getNextOperatorOrOperand());
+        assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"sqrt", rpnGetCharactersCorrect.getNextOperatorOrOperand());
+        assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"pow", rpnGetCharactersCorrect.getNextOperatorOrOperand());
     }
 
 
