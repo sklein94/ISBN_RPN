@@ -51,7 +51,6 @@ public class RPN_Parser {
     }
 
     private double parse() {
-        this.setCurrentParsingString();
         if (this.stringToParseIsValid()) {
 
 
@@ -64,43 +63,21 @@ public class RPN_Parser {
     //============================Parsen - Vorgang========================================================
     //====================================================================================================
 
-    private void setCurrentParsingString() {
-        this.stringToParse_StringWhileParsing = this.stringToParse_Attribute;
-    }
-
-    public String getNextOperatorOrOperand() {
-        String currentParsingString = this.stringToParse_StringWhileParsing;
-        String nextOperatorOrOperand = "";
-
-        for (int i = 0; i < currentParsingString.length(); i++) {
-            char currentCharacter = currentParsingString.charAt(i);
-            if (currentCharacter != ' ') {
-                nextOperatorOrOperand = currentParsingString.substring(i, this.findEndOfArgumentInString(currentParsingString, i));
-                currentParsingString = currentParsingString.substring(this.findEndOfArgumentInString(currentParsingString, i));
-                break;
-            }
-        }
-
-        this.stringToParse_StringWhileParsing = currentParsingString;
-
-        return nextOperatorOrOperand;
-    }
 
     public Stack getArgumentsAsStackWithLeftArgumentOnTop() {
         Stack stackOfArguments = new Stack();
         Stack stackOfArgumentsInverted = new Stack();
-        this.setCurrentParsingString();
 
+        String splittedValues[] = stringToParse_Attribute.split(" ");
 
-        while (this.stringToParse_StringWhileParsing.length() > 0) {
-            stackOfArguments.push(this.getNextOperatorOrOperand());
+        for (int i = 0; i < splittedValues.length; i++){
+            stackOfArguments.push(splittedValues[i]);
         }
         while (!stackOfArguments.empty()) {
             stackOfArgumentsInverted.push(stackOfArguments.pop());
         }
 
 
-        this.setCurrentParsingString();
         return stackOfArgumentsInverted;
     }
 
@@ -133,23 +110,6 @@ public class RPN_Parser {
     public static boolean validStringToParse(RPN_Parser rpn) {
         return rpn.stringToParseIsValid();
     }
-    
-    /*
-     * Einzelne Testmethoden auf Gültigkeit der Teilbereiche
-     */
-
-    /*private boolean correctPositionsOfArguments() {
-        boolean ok = true;
-
-        for (int i = 0; i < this.stringToParse_Attribute.length(); i++) {
-            if ((this.stringToParse_Attribute.charAt(i) == ' ') || (i == this.stringToParse_Attribute.length() - 1)) {
-                ok = ok && this.notTooManyOperatorsToEndIndex(i);
-            }
-        }
-
-
-        return ok;
-    }*/
 
     private boolean correctNumberAndPositioningOfArguments(Stack arguments) {
         boolean ok = true;
@@ -159,6 +119,7 @@ public class RPN_Parser {
         while (!firstStack.empty()) {
             secondStack.push(firstStack.pop());
             ok = ok && (this.countOperatorsWithTwoArguments((Stack) secondStack.clone()) < this.countOperands((Stack) secondStack.clone()));
+            ok = ok && (this.countOperatorsWithOneArgument((Stack) secondStack.clone()) <= this.countOperands((Stack) secondStack.clone()));
         }
 
         ok = ok && this.countOperatorsWithTwoArguments((Stack) secondStack.clone()) == (this.countOperands((Stack) secondStack.clone())-1);
@@ -237,17 +198,25 @@ public class RPN_Parser {
         return ok;
     }
 
-    private boolean noInvalidCharacters() {
-        boolean ok = true;
-        String stringToCheck = this.stringToParse_Attribute;
-
-        for (int i = 0; i < stringToCheck.length(); i++) {
-            char ch = stringToCheck.charAt(i);
-            ok = ok && this.isValidCharacter(ch);
+    private int findEndOfArgumentInString(String stringToCheck, int startposition) {
+        int position = stringToCheck.length();
+        for (int i = startposition; i < stringToCheck.length(); i++) {
+            if (stringToCheck.charAt(i) == ' ') {
+                position = i;
+                break;
+            }
         }
+        return position;
+    }
 
-
-        return ok;
+    public boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public int numberOfOperands() {
@@ -299,56 +268,6 @@ public class RPN_Parser {
         }
 
         return number;
-    }
-
-    private boolean isValidCharacter(char characterToTest) {
-        boolean characterValid = characterToTest >= '0' && characterToTest <= '9';
-        characterValid = characterValid || characterToTest == '+';
-        characterValid = characterValid || characterToTest == '-';
-        characterValid = characterValid || characterToTest == '*';
-        characterValid = characterValid || characterToTest == '/';
-        characterValid = characterValid || characterToTest == '%';
-        characterValid = characterValid || characterToTest == '!';
-        characterValid = characterValid || characterToTest == '^';
-        characterValid = characterValid || characterToTest == ' ';
-        characterValid = characterValid || characterToTest == 's';
-        characterValid = characterValid || characterToTest == 'q';
-        characterValid = characterValid || characterToTest == 'r';
-        characterValid = characterValid || characterToTest == 't';
-        characterValid = characterValid || characterToTest == 'p';
-        characterValid = characterValid || characterToTest == 'o';
-        characterValid = characterValid || characterToTest == 'w';
-        return characterValid;
-    }
-
-    private int findEndOfArgumentInString(String stringToCheck, int startposition) {
-        int position = stringToCheck.length();
-        for (int i = startposition; i < stringToCheck.length(); i++) {
-            if (stringToCheck.charAt(i) == ' ') {
-                position = i;
-                break;
-            }
-        }
-        return position;
-    }
-
-    private boolean notTooManyOperatorsToEndIndex(int endIndex) {
-        boolean ok = true;
-        for (int i = 0; i < endIndex; i++) {
-            RPN_Parser rpn = new RPN_Parser(this.stringToParse_Attribute.substring(0, endIndex));
-            ok = ok && rpn.numberOfOperands() > rpn.numberOfOperatorsWithTwoOperands();
-        }
-        return ok;
-    }
-
-    public boolean isInteger(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        }
-        catch (NumberFormatException e) {
-            return false;
-        }
     }
 
 }
