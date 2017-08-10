@@ -118,13 +118,12 @@ public class RPN_Parser {
         boolean ok = false;
 
 
-
-
         return ok;
     }
 
     private boolean correctNumberOfArguments() {
-        return (this.numberOfOperands() == (this.numberOfOperators() + 1));
+        boolean ok = (this.numberOfOperands() == (this.numberOfOperatorsWithTwoOperands() + 1));
+        return ok;
     }
 
     private boolean noInvalidCharacters() {
@@ -154,7 +153,7 @@ public class RPN_Parser {
         return number;
     }
 
-    public int numberOfOperators() {
+    public int numberOfOperatorsWithTwoOperands() {
         int number = 0;
 
         for (int i = 0; i < this.stringToParse_Attribute.length(); i++) {
@@ -164,8 +163,23 @@ public class RPN_Parser {
             ok = ok || currentCharOfStringToParse == '*';
             ok = ok || currentCharOfStringToParse == '/';
             ok = ok || currentCharOfStringToParse == '%';
-            ok = ok || currentCharOfStringToParse == '!';
             ok = ok || currentCharOfStringToParse == '^';
+            if (ok) {
+                number++;
+            }
+        }
+
+        return number;
+    }
+
+    public int numberOfOperatorsWithOneOperand() {
+        int number = 0;
+
+        for (int i = 0; i < this.stringToParse_Attribute.length(); i++) {
+            char currentCharOfStringToParse = this.stringToParse_Attribute.charAt(i);
+            boolean ok = currentCharOfStringToParse == '!';
+            ok = ok || (currentCharOfStringToParse == 's' && this.stringToParse_Attribute.length() >= (i + 4));
+            ok = ok || (currentCharOfStringToParse == 's' && this.stringToParse_Attribute.length() >= (i + 3));
             if (ok) {
                 number++;
             }
@@ -184,11 +198,15 @@ public class RPN_Parser {
         characterValid = characterValid || characterToTest == '!';
         characterValid = characterValid || characterToTest == '^';
         characterValid = characterValid || characterToTest == ' ';
+        characterValid = characterValid || characterToTest == 's';
+        characterValid = characterValid || characterToTest == 'q';
+        characterValid = characterValid || characterToTest == 'r';
+        characterValid = characterValid || characterToTest == 't';
         return characterValid;
     }
 
     private int findEndOfArgumentInString(String stringToCheck, int startposition) {
-        if (Character.isDigit(stringToCheck.charAt(startposition))) {
+        /*if (Character.isDigit(stringToCheck.charAt(startposition))) {
             for (int i = startposition; i < stringToCheck.length(); i++) {
                 if (!Character.isDigit(stringToCheck.charAt(i))) {
                     return i;
@@ -196,7 +214,15 @@ public class RPN_Parser {
                 else if (i == stringToCheck.length()-1) return stringToCheck.length();
             }
         }
-        return startposition + 1;
+        return startposition + 1;*/
+        int position = stringToCheck.length();
+        for (int i = startposition; i < stringToCheck.length(); i++) {
+            if (stringToCheck.charAt(i) == ' '){
+                position =  i;
+                break;
+            }
+        }
+        return position;
     }
 
 }

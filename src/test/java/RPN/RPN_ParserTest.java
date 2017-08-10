@@ -38,8 +38,8 @@ public class RPN_ParserTest {
         RPN_Parser rpnCalculatesComplexA = new RPN_Parser("1 2 + 3 *");
         assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),9, rpnCalculatesCorrectSubstraction.numberOfOperands());
 
-        RPN_Parser rpnCalculatesComplexB = new RPN_Parser("1 2 + 3 * 1 + 5 / 2 - 4 + sqrt");
-        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),9, rpnCalculatesCorrectSubstraction.numberOfOperands());
+        RPN_Parser rpnCalculatesComplexB = new RPN_Parser("1 2 + 3 * 1 + 5 / 2 - 4 + sqrt sqr");
+        assertEquals(this.errorMessage("parse()", rpnCalculatesCorrectSubstraction),4, rpnCalculatesCorrectSubstraction.numberOfOperands());
     }
 
     @Test
@@ -74,9 +74,6 @@ public class RPN_ParserTest {
 
         RPN_Parser rpnValidMultipleOperators = new RPN_Parser("1 2 + 1 2 - /");
         assertTrue(this.errorMessage("stringToParseIsValid()", rpnValidMultipleOperators), RPN_Parser.validStringToParse(rpnValidMultipleOperators));
-
-        RPN_Parser rpnValidMultipleOperatorsWithoutSpaces = new RPN_Parser("1 2+1 2-/");
-        assertTrue(this.errorMessage("stringToParseIsValid()", rpnValidMultipleOperatorsWithoutSpaces), RPN_Parser.validStringToParse(rpnValidMultipleOperatorsWithoutSpaces));
 
         RPN_Parser rpnValidMultipleOperatorsWithOperatorsAtTheEnd = new RPN_Parser("1 2 3 4 + + +");
         assertTrue(this.errorMessage("stringToParseIsValid()", rpnValidMultipleOperatorsWithOperatorsAtTheEnd), RPN_Parser.validStringToParse(rpnValidMultipleOperatorsWithOperatorsAtTheEnd));
@@ -142,19 +139,28 @@ public class RPN_ParserTest {
 
 
     @Test
-    public void checkRPNNumberOfOperantorsFunctionCorrect(){
+    public void checkRPNNumberOfOperantorsWithTwoOperantsFunctionCorrect(){
 
-        RPN_Parser rpnCountOperatorsCorrectA = new RPN_Parser("1 +  - * / ^ ! % 2");
-        assertEquals(this.errorMessage("numberOfOperands()", rpnCountOperatorsCorrectA),7, rpnCountOperatorsCorrectA.numberOfOperators());
+        RPN_Parser rpnCountOperatorsCorrectA = new RPN_Parser("1 +  - * / ^ % 2");
+        assertEquals(this.errorMessage("numberOfOperatorsWithTwoOperands()", rpnCountOperatorsCorrectA),6, rpnCountOperatorsCorrectA.numberOfOperatorsWithTwoOperands());
 
-        RPN_Parser rpnCountOperatorsCorrectB = new RPN_Parser("--++//%+");
-        assertEquals(this.errorMessage("numberOfOperands()", rpnCountOperatorsCorrectB),8, rpnCountOperatorsCorrectB.numberOfOperators());
+        RPN_Parser rpnCountOperatorsCorrectB = new RPN_Parser("- - + + / / % +");
+        assertEquals(this.errorMessage("numberOfOperatorsWithTwoOperands()", rpnCountOperatorsCorrectB),8, rpnCountOperatorsCorrectB.numberOfOperatorsWithTwoOperands());
     }
 
+    @Test
+    public void checkRPNNumberOfOperantorsWithOneOperantFunctionCorrect(){
+
+        RPN_Parser rpnCountOperatorsCorrectWithOneOperandA = new RPN_Parser("sqrt sqr sqrt !");
+        assertEquals(this.errorMessage("numberOfOperatorsWithTwoOperands()", rpnCountOperatorsCorrectWithOneOperandA),4, rpnCountOperatorsCorrectWithOneOperandA.numberOfOperatorsWithOneOperand());
+
+        RPN_Parser rpnCountOperatorsCorrectWithOneOperandB = new RPN_Parser("! ! ! sqrt sqr");
+        assertEquals(this.errorMessage("numberOfOperatorsWithTwoOperands()", rpnCountOperatorsCorrectWithOneOperandB),5, rpnCountOperatorsCorrectWithOneOperandB.numberOfOperatorsWithOneOperand());
+    }
 
     @Test
     public void checkRPNgetCharactersCorrect(){
-        RPN_Parser rpnGetCharactersCorrect = new RPN_Parser("1 55 +  - * /^! % 255");
+        RPN_Parser rpnGetCharactersCorrect = new RPN_Parser("1 55 +  - * / ^ ! % 255");
         assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"1", rpnGetCharactersCorrect.getNextOperatorOrOperand());
         assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"55", rpnGetCharactersCorrect.getNextOperatorOrOperand());
         assertEquals(this.errorMessage("getNextOperatorOrOperand()", rpnGetCharactersCorrect),"+", rpnGetCharactersCorrect.getNextOperatorOrOperand());
