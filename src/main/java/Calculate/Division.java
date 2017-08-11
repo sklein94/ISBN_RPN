@@ -3,11 +3,11 @@ package Calculate;
 import java.math.BigDecimal;
 
 public class Division implements Operation {
-    public BigDecimal calculate() {
+    public BigDecimal calculate(BigDecimal... arr) {
         return null;
     }
 
-    public boolean canCalculate() {
-        return false;
+    public boolean canCalculate(String operator) {
+        return operator.equals("-");
     }
 }
