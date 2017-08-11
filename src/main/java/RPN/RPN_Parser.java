@@ -2,6 +2,9 @@ package RPN;
 
 import java.util.Stack;
 
+import static java.lang.Math.pow;
+import static jdk.nashorn.internal.objects.NativeMath.sqrt;
+
 public class RPN_Parser {
 
     //====================================================================================================
@@ -9,7 +12,6 @@ public class RPN_Parser {
     //====================================================================================================
 
     private String stringToParse_Attribute;                 //Der String, der gespeichert wird, um später geparst zu werden
-    private String stringToParse_StringWhileParsing;        //Der String, der aktuell geparst wird. Wird bei jedem Zwischenschritt beim Parsen verändert
 
 
     //====================================================================================================
@@ -33,7 +35,6 @@ public class RPN_Parser {
     //Setzt den String, der aktuell gaparst werden soll, auf den in dem Objekt gespeicherten String.
     private void setStringToParse(String stringToParse) {
         this.stringToParse_Attribute = stringToParse;
-        this.stringToParse_StringWhileParsing = stringToParse;
     }
 
 
@@ -52,9 +53,69 @@ public class RPN_Parser {
 
     private double parse() {
         if (this.stringToParseIsValid()) {
+            double calculatedValue = 0.0;
+            Stack stackOfValues = this.getArgumentsAsStackWithLeftArgumentOnTop();
+            Stack stackToCalculate = new Stack();
 
+            while (!stackOfValues.empty()) {
+                stackToCalculate.push(stackOfValues.pop());
+                if (!this.isNumber((String) stackToCalculate.peek())) {
+                    String operator = (String) stackToCalculate.pop();
+                    if (operator.equals("+")) {
+                        double operandRight = Double.parseDouble((String) stackToCalculate.pop());
+                        double operandLeft = Double.parseDouble((String) stackToCalculate.pop());
+                        stackToCalculate.push("" + (operandLeft + operandRight));
+                    }
+                    else if (operator.equals("-")) {
+                        double operandRight = Double.parseDouble((String) stackToCalculate.pop());
+                        double operandLeft = Double.parseDouble((String) stackToCalculate.pop());
+                        stackToCalculate.push("" + (operandLeft - operandRight));
 
-            return 0.0;
+                    }
+                    else if (operator.equals("*")) {
+                        double operandRight = Double.parseDouble((String) stackToCalculate.pop());
+                        double operandLeft = Double.parseDouble((String) stackToCalculate.pop());
+                        stackToCalculate.push("" + (operandLeft * operandRight));
+
+                    }
+                    else if (operator.equals("/")) {
+                        double operandRight = Double.parseDouble((String) stackToCalculate.pop());
+                        double operandLeft = Double.parseDouble((String) stackToCalculate.pop());
+                        stackToCalculate.push("" + (operandLeft / operandRight));
+                    }
+                    else if (operator.equals("%")) {
+                        double operandRight = Double.parseDouble((String) stackToCalculate.pop());
+                        double operandLeft = Double.parseDouble((String) stackToCalculate.pop());
+                        stackToCalculate.push("" + (operandLeft % operandRight));
+                    }
+                    else if (operator.equals("!")) {
+                        double operandRight = Double.parseDouble((String) stackToCalculate.pop());
+                        if (((int) operandRight) == operandRight) {
+                            stackToCalculate.push("" + (this.faculty((int) operandRight)));
+                        }
+                        else return Double.NaN;
+                    }
+                    else if (operator.equals("pow")) {
+                        double operandRight = Double.parseDouble((String) stackToCalculate.pop());
+                        double operandLeft = Double.parseDouble((String) stackToCalculate.pop());
+                        if (((int) operandRight) == operandRight) {
+                            stackToCalculate.push("" + (pow(operandLeft, operandRight)));
+                        }
+                        else return Double.NaN;
+                    }
+                    else if (operator.equals("sqrt")) {
+                        double operandRight = Double.parseDouble((String) stackToCalculate.pop());
+                        stackToCalculate.push("" + (Math.sqrt(operandRight)));
+                    }
+                    else if (operator.equals("sqr")) {
+                        double operandRight = Double.parseDouble((String) stackToCalculate.pop());
+                        stackToCalculate.push("" + (pow(operandRight, 2)));
+                    }
+                    else return Double.NaN;
+                }
+            }
+
+            return Double.parseDouble((String) stackToCalculate.pop());
         }
         else return Double.NaN;
     }
@@ -70,7 +131,7 @@ public class RPN_Parser {
 
         String splittedValues[] = stringToParse_Attribute.split(" ");
 
-        for (int i = 0; i < splittedValues.length; i++){
+        for (int i = 0; i < splittedValues.length; i++) {
             stackOfArguments.push(splittedValues[i]);
         }
         while (!stackOfArguments.empty()) {
@@ -122,7 +183,7 @@ public class RPN_Parser {
             ok = ok && (this.countOperatorsWithOneArgument((Stack) secondStack.clone()) <= this.countOperands((Stack) secondStack.clone()));
         }
 
-        ok = ok && this.countOperatorsWithTwoArguments((Stack) secondStack.clone()) == (this.countOperands((Stack) secondStack.clone())-1);
+        ok = ok && this.countOperatorsWithTwoArguments((Stack) secondStack.clone()) == (this.countOperands((Stack) secondStack.clone()) - 1);
 
         return ok;
     }
@@ -192,7 +253,7 @@ public class RPN_Parser {
             argumentValid = argumentValid || elementOfStack.equals("pow");
             argumentValid = argumentValid || elementOfStack.equals("sqrt");
             argumentValid = argumentValid || elementOfStack.equals("sqr");
-            argumentValid = argumentValid || this.isInteger(elementOfStack);
+            argumentValid = argumentValid || this.isNumber(elementOfStack);
             ok = ok && argumentValid;
         }
         return ok;
@@ -217,6 +278,20 @@ public class RPN_Parser {
         catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public boolean isDouble(String input) {
+        try {
+            Double.parseDouble(input);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public boolean isNumber(String input) {
+        return this.isInteger(input) || this.isDouble(input);
     }
 
     public int numberOfOperands() {
@@ -268,6 +343,15 @@ public class RPN_Parser {
         }
 
         return number;
+    }
+
+    public double faculty(int number) {
+        int sum = 0;
+        for (int i = 1; i <= number; i++) {
+            if (i == 1) sum = 1;
+            sum *= i;
+        }
+        return sum;
     }
 
 }
