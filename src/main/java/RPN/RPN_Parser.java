@@ -278,6 +278,9 @@ public class RPN_Parser {
         catch (NumberFormatException e) {
             return false;
         }
+        catch (NullPointerException e) {
+            return false;
+        }
     }
 
     public boolean isDouble(String input) {
@@ -286,6 +289,9 @@ public class RPN_Parser {
             return true;
         }
         catch (NumberFormatException e) {
+            return false;
+        }
+        catch (NullPointerException e) {
             return false;
         }
     }
