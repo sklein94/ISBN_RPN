@@ -3,11 +3,11 @@ package Calculate;
 import java.math.BigDecimal;
 
 public class Squareroot implements Operation {
-    public BigDecimal calculate() {
+    public BigDecimal calculate(BigDecimal... arr) {
         return null;
     }
 
-    public boolean canCalculate() {
+    public boolean canCalculate(String operator) {
         return false;
     }
 }
