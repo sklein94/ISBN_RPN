@@ -11,20 +11,20 @@ public class SubtractionTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.calculationOf("1", "1", "0");
-        this.calculationOf("2", "2", "0");
-        this.calculationOf("3", "3", "0");
+        this.subtractionnOf("1", "1", "0");
+        this.subtractionnOf("2", "2", "0");
+        this.subtractionnOf("3", "3", "0");
 
-        this.calculationOf("0", "0", "0");
+        this.subtractionnOf("0", "0", "0");
 
-        this.calculationOf("1", "-1", "2");
-        this.calculationOf("-2", "2", "-4");
-        this.calculationOf("-3", "-3", "0");
+        this.subtractionnOf("1", "-1", "2");
+        this.subtractionnOf("-2", "2", "-4");
+        this.subtractionnOf("-3", "-3", "0");
 
-        this.calculationOf("1.55", "2.45", "-0.9");
-        this.calculationOf("-1.15", "-1.15", "0");
-        this.calculationOf("1.1255", "3.1255", "-2");
-        this.calculationOf("1.111", "3.111", "-2");
+        this.subtractionnOf("1.55", "2.45", "-0.9");
+        this.subtractionnOf("-1.15", "-1.15", "0");
+        this.subtractionnOf("1.1255", "3.1255", "-2");
+        this.subtractionnOf("1.111", "3.111", "-2");
     }
 
 
@@ -65,23 +65,14 @@ public class SubtractionTest implements OperationTest{
         }
     }
 
-//    private void failOnTheseArguments(String leftParameter, String rightParameter){
-//
-//        try{
-//
-//        }
-//
-//    }
-
-
-    public void calculationOf(String... arguments) throws Exception {
+    private void subtractionnOf(String leftParameter, String rightParameter, String expectedValue) throws Exception {
         Subtraction subtraction = new Subtraction();
-        BigDecimal calculate = subtraction.calculate(new BigDecimal(arguments[0]), new BigDecimal(arguments[1]));
-        BigDecimal expected = new BigDecimal(arguments[2]);
+        BigDecimal calculate = subtraction.calculate(new BigDecimal(leftParameter), new BigDecimal(rightParameter));
+        BigDecimal expected = new BigDecimal(expectedValue);
         assertEquals("\nExpected: " + expected.toString() + "\nActual: " + calculate.toString(),0, calculate.compareTo(expected));
     }
 
-    public void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception{
+    private void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception{
         Subtraction subtraction = new Subtraction();
         if (shouldBeCorrect){
             assertTrue("Operator: " + operator, subtraction.canCalculate(operator));
