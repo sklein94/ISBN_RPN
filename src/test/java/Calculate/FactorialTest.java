@@ -11,40 +11,27 @@ public class FactorialTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
+        this.calculationOf("0", "1");
+
         this.calculationOf("1", "1");
         this.calculationOf("2", "2");
         this.calculationOf("3", "6");
-        this.calculationOf("4", "24");
-        this.calculationOf("5", "120");
-        this.calculationOf("6", "720");
+
+        this.calculationOf("10", "3628800");
     }
 
     @Test
     public void valueTooLow() throws Exception{
-        Factorial factorial = new Factorial();
-        try {
-            factorial.calculate(new BigDecimal(0));
-            factorial.calculate(new BigDecimal(-1));
-            factorial.calculate(new BigDecimal(-2));
-            fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
-        }
-        catch (ArithmeticException arithmeticException) {
-
-        }
+        this.failOnThisArgument("-1");
+        this.failOnThisArgument("-2");
+        this.failOnThisArgument("-10");
     }
 
     @Test
     public void valueIsNotFloat() throws Exception{
-        Factorial factorial = new Factorial();
-        try {
-            factorial.calculate(new BigDecimal("1.1"));
-            factorial.calculate(new BigDecimal("2.5"));
-            factorial.calculate(new BigDecimal("106.453"));
-            fail("Es sollte eine Exception geworfen werden. Es wurde mindestens eine ungueltige Zahl angegeben.");
-        }
-        catch (ArithmeticException arithmeticException) {
-
-        }
+        this.failOnThisArgument("1.1");
+        this.failOnThisArgument("2.5");
+        this.failOnThisArgument("106.453");
     }
 
     @Test
@@ -70,6 +57,17 @@ public class FactorialTest implements OperationTest{
             if (!temp.equals("!")){
                 checkOperatorToCalculate(temp, false);
             }
+        }
+    }
+
+    public void failOnThisArgument(String argument){
+        Factorial factorial = new Factorial();
+        BigDecimal argumentAsBigDecimal = new BigDecimal(argument);
+        try {
+            factorial.calculate(argumentAsBigDecimal);
+            fail("Es wurde ein ungueltiger Parameter akzeptiert.");
+        }
+        catch (Exception e) {
         }
     }
 

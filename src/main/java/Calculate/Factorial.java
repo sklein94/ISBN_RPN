@@ -11,7 +11,7 @@ public class Factorial implements Operation {
     }
     public BigDecimal calculate(BigDecimal... arr) throws Exception{
         if (arr.length == 1) {
-            if (arr[0].toBigIntegerExact().compareTo(new BigInteger("0")) > 0) {
+            if (arr[0].toBigIntegerExact().compareTo(new BigInteger("0")) >= 0) {
 
 
                 BigInteger endValue = arr[0].toBigIntegerExact();
@@ -24,13 +24,13 @@ public class Factorial implements Operation {
                 return sum;
             }
             else {
-                throw new ArithmeticException("Parameter enthaelt ungueltige Zahl(en).");
+                throw new ArithmeticException("Es wurde versucht, aus einer ungültigen Zahl eine Fakultät zu berechnen: "+ arr[0]);
             }
         }
         else throw new NumberOfParametersException("Falsche Anzahl an Parametern.");
     }
 
     public boolean canCalculate(String operator) {
-        return operator.equals("!") || operator.equals("fac");
+        return operator.equals("!");
     }
 }

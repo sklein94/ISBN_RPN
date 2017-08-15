@@ -29,32 +29,16 @@ public class PotencyTest implements OperationTest{
 
     @Test
     public void potencyIsNegative() throws Exception{
-        Potency potency = new Potency();
-        try{
-            potency.calculate(new BigDecimal(1), new BigDecimal(-1));
-            potency.calculate(new BigDecimal(-1), new BigDecimal(1));
-            potency.calculate(new BigDecimal(-1), new BigDecimal(-1));
-            fail("Es sollte eine Exception geworfen werden. Es wurde mindestens ein negativer Parameter uebergeben.");
-        }
-        catch (ArithmeticException arithmeticException){
-
-
-        }
+        this.failOnTheseArguments("1", "-1");
+        this.failOnTheseArguments("-3", "5");
+        this.failOnTheseArguments("-12", "-4");
     }
 
     @Test
-    public void isNotFloat() throws Exception{
-        Potency potency = new Potency();
-        try{
-            potency.calculate(new BigDecimal(1), new BigDecimal(0.25));
-            potency.calculate(new BigDecimal(0.25), new BigDecimal(1));
-            potency.calculate(new BigDecimal(0.25), new BigDecimal(0.25));
-            fail("Es sollte eine Exception geworfen werden. Es wurde mindestens ein negativer Parameter uebergeben.");
-        }
-        catch (ArithmeticException arithmeticException){
-
-
-        }
+    public void potencyIsFloat() throws Exception{
+        this.failOnTheseArguments("1", "0.25");
+        this.failOnTheseArguments("0.5", "2");
+        this.failOnTheseArguments("0.125", "1.5");
     }
 
     @Test
@@ -81,6 +65,19 @@ public class PotencyTest implements OperationTest{
             if (!temp.equals("pow")){
                 checkOperatorToCalculate(temp, false);
             }
+        }
+    }
+
+    public void failOnTheseArguments(String leftArgument, String rightArgument){
+        BigDecimal leftArgumentAsBigDecimal = new BigDecimal(leftArgument);
+        BigDecimal rightArgumentAsBigDecimal = new BigDecimal(rightArgument);
+        Potency potency = new Potency();
+        try {
+            potency.calculate(leftArgumentAsBigDecimal, rightArgumentAsBigDecimal);
+            fail("Es wurde eine falsche Anzahl an Parametern akzeptiert.");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

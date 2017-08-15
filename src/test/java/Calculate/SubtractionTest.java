@@ -7,15 +7,20 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 
-public class DivisionTest implements OperationTest{
+public class SubtractionTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.calculationOf("1", "2", "-1");
-        this.calculationOf("5", "6", "-1");
-        this.calculationOf("-4", "-12", "8");
-        this.calculationOf("5", "0", "5");
-        this.calculationOf("2", "-1", "3");
+        this.calculationOf("1", "1", "0");
+        this.calculationOf("2", "2", "0");
+        this.calculationOf("3", "3", "0");
+
+        this.calculationOf("0", "0", "0");
+
+        this.calculationOf("1", "-1", "2");
+        this.calculationOf("-2", "2", "-4");
+        this.calculationOf("-3", "-3", "0");
+
         this.calculationOf("1.55", "2.45", "-0.9");
         this.calculationOf("-1.15", "-1.15", "0");
         this.calculationOf("1.1255", "3.1255", "-2");
@@ -49,10 +54,10 @@ public class DivisionTest implements OperationTest{
         }
     }
 
-    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
-        Division division = new Division();
+    private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+        Subtraction subtraction = new Subtraction();
         try {
-            division.calculate(arguments);
+            subtraction.calculate(arguments);
             fail("Es wurde eine falsche Anzahl an Parametern akzeptiert.");
         }
         catch (NumberOfParametersException numberOfParameterException) {
@@ -60,21 +65,29 @@ public class DivisionTest implements OperationTest{
         }
     }
 
+//    private void failOnTheseArguments(String leftParameter, String rightParameter){
+//
+//        try{
+//
+//        }
+//
+//    }
+
 
     public void calculationOf(String... arguments) throws Exception {
-        Division division = new Division();
-        BigDecimal calculate = division.calculate(new BigDecimal(arguments[0]), new BigDecimal(arguments[1]));
+        Subtraction subtraction = new Subtraction();
+        BigDecimal calculate = subtraction.calculate(new BigDecimal(arguments[0]), new BigDecimal(arguments[1]));
         BigDecimal expected = new BigDecimal(arguments[2]);
         assertEquals("\nExpected: " + expected.toString() + "\nActual: " + calculate.toString(),0, calculate.compareTo(expected));
     }
 
     public void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception{
-        Division division = new Division();
+        Subtraction subtraction = new Subtraction();
         if (shouldBeCorrect){
-            assertTrue("Operator: " + operator, division.canCalculate(operator));
+            assertTrue("Operator: " + operator, subtraction.canCalculate(operator));
         }
         else{
-            assertFalse("Operator: " + operator, division.canCalculate(operator));
+            assertFalse("Operator: " + operator, subtraction.canCalculate(operator));
         }
     }
 

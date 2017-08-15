@@ -10,15 +10,20 @@ import static org.junit.Assert.*;
 public class AdditionTest implements OperationTest{
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.calculationOf("1", "2", "3");
-        this.calculationOf("5", "6", "11");
-        this.calculationOf("-4", "-12", "-16");
-        this.calculationOf("5", "0", "5");
-        this.calculationOf("2", "-1", "1");
-        this.calculationOf("1.55", "2.45", "4");
-        this.calculationOf("-1.15", "-1.15", "-2.3");
-        this.calculationOf("1.1255", "3.1255", "4.251");
-        this.calculationOf("1.111", "3.111", "4.222");
+        this.additionOf("1", "1", "2");
+        this.additionOf("2", "2", "4");
+        this.additionOf("3", "3", "6");
+
+        this.additionOf("0", "0", "0");
+
+        this.additionOf("1", "-1", "0");
+        this.additionOf("-2", "2", "0");
+        this.additionOf("-3", "-3", "-6");
+
+        this.additionOf("1.55", "2.45", "4");
+        this.additionOf("-1.15", "-1.15", "-2.3");
+        this.additionOf("1.1255", "3.1255", "4.251");
+        this.additionOf("1.111", "3.111", "4.222");
     }
 
 
@@ -48,7 +53,7 @@ public class AdditionTest implements OperationTest{
         }
     }
 
-    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+    private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Addition addition = new Addition();
         try{
             addition.calculate(arguments);
@@ -60,14 +65,14 @@ public class AdditionTest implements OperationTest{
 
     }
 
-    public void calculationOf(String... arguments) throws Exception {
+    private void additionOf(String leftArgument, String rightArgument, String expectedArgument) throws Exception {
         Addition addition = new Addition();
-        BigDecimal calculate = addition.calculate(new BigDecimal(arguments[0]), new BigDecimal(arguments[1]));
-        BigDecimal expected = new BigDecimal(arguments[2]);
+        BigDecimal calculate = addition.calculate(new BigDecimal(leftArgument), new BigDecimal(rightArgument));
+        BigDecimal expected = new BigDecimal(expectedArgument);
         assertEquals("\nExpected: " + expected.toString() + "\nActual: " + calculate.toString(),0, calculate.compareTo(expected));
     }
 
-    public void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception{
+    private void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception{
         Addition addition = new Addition();
         if (shouldBeCorrect){
             assertTrue("Operator: " + operator, addition.canCalculate(operator));

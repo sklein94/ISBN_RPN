@@ -25,17 +25,12 @@ public class ModuloTest implements OperationTest{
     }
 
     @Test
-    public void valueIsNotFloat() throws Exception{
-        Modulo modulo = new Modulo();
-        try {
-            modulo.calculate(new BigDecimal("1.1"), new BigDecimal("1"));
-            modulo.calculate(new BigDecimal("2"), new BigDecimal("1.45"));
-            modulo.calculate(new BigDecimal("2.5"), new BigDecimal("1.35"));
-            fail("Es sollte eine Exception geworfen werden. Es wurde eine ungueltige Zahl angegeben.");
-        }
-        catch (ArithmeticException arithmeticException) {
+    public void checkFOrInvalidValues() throws Exception{
+        this.failOnTheseArguments("1.1","1");
+        this.failOnTheseArguments("2","1.45");
+        this.failOnTheseArguments("2.5","1.35");
 
-        }
+        this.failOnTheseArguments("10","0");
     }
 
     @Test
@@ -65,7 +60,20 @@ public class ModuloTest implements OperationTest{
         }
     }
 
-    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+    private void failOnTheseArguments(String leftParameter, String rightParameter){
+        Modulo modulo = new Modulo();
+        BigDecimal leftParameterBigDecimal = new BigDecimal(leftParameter);
+        BigDecimal rightParameterBigDecimal = new BigDecimal(rightParameter);
+        try{
+            modulo.calculate(leftParameterBigDecimal, rightParameterBigDecimal);
+            fail("Es wurde ein ungueltiger Wert akzeptiert.");
+        }
+        catch (Exception e){
+
+        }
+    }
+
+    private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Modulo modulo = new Modulo();
         try {
             modulo.calculate(arguments);
@@ -76,7 +84,7 @@ public class ModuloTest implements OperationTest{
         }
     }
 
-    public void calculationOf(String... arguments) throws Exception {
+    private void calculationOf(String... arguments) throws Exception {
         Modulo modulo = new Modulo();
         BigDecimal calculate = modulo.calculate(new BigDecimal(arguments[0]),new BigDecimal(arguments[1]));
         BigDecimal expected = new BigDecimal(arguments[2]);
@@ -85,7 +93,7 @@ public class ModuloTest implements OperationTest{
         assertEquals(message, 0, calculate.compareTo(expected));
     }
 
-    public void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
+    private void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
         Modulo modulo = new Modulo();
         String message = "Operator: " + operator;
         if (shouldBeCorrect) {
