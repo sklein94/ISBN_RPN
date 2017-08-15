@@ -10,15 +10,15 @@ import static org.junit.Assert.*;
 public class AdditionTest implements OperationTest{
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.additionOf("1", "2", "3");
-        this.additionOf("5", "6", "11");
-        this.additionOf("-4", "-12", "-16");
-        this.additionOf("5", "0", "5");
-        this.additionOf("2", "-1", "1");
-        this.additionOf("1.55", "2.45", "4");
-        this.additionOf("-1.15", "-1.15", "-2.3");
-        this.additionOf("1.1255", "3.1255", "4.251");
-        this.additionOf("1.111", "3.111", "4.222");
+        this.calculationOf("1", "2", "3");
+        this.calculationOf("5", "6", "11");
+        this.calculationOf("-4", "-12", "-16");
+        this.calculationOf("5", "0", "5");
+        this.calculationOf("2", "-1", "1");
+        this.calculationOf("1.55", "2.45", "4");
+        this.calculationOf("-1.15", "-1.15", "-2.3");
+        this.calculationOf("1.1255", "3.1255", "4.251");
+        this.calculationOf("1.111", "3.111", "4.222");
     }
 
 
@@ -41,7 +41,7 @@ public class AdditionTest implements OperationTest{
         try {
             addition.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
             addition.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-            fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
+            fail("Es sollte eine Exception geworfen werden. Es wurden zu viele Parameter uebergeben.");
         }
         catch (NumberOfParametersException numberOfParameterException) {
 
@@ -55,22 +55,18 @@ public class AdditionTest implements OperationTest{
 
     @Test
     public void operatorShouldBeInvalid() throws Exception{
-        checkOperatorToCalculate("-", false);
-        checkOperatorToCalculate("*", false);
-        checkOperatorToCalculate("/", false);
-        checkOperatorToCalculate("!", false);
-        checkOperatorToCalculate("sqrt", false);
-        checkOperatorToCalculate("sqr", false);
-        checkOperatorToCalculate("%", false);
-        checkOperatorToCalculate("pow", false);
-
+        for (String temp : Operators.listOfOperators){
+            if (!temp.equals("+")){
+                checkOperatorToCalculate(temp, false);
+            }
+        }
     }
 
 
-    public void additionOf(String leftParameter, String rightParameter, String expectedResult) throws Exception {
+    public void calculationOf(String... arguments) throws Exception {
         Addition addition = new Addition();
-        BigDecimal calculate = addition.calculate(new BigDecimal(leftParameter), new BigDecimal(rightParameter));
-        BigDecimal expected = new BigDecimal(expectedResult);
+        BigDecimal calculate = addition.calculate(new BigDecimal(arguments[0]), new BigDecimal(arguments[1]));
+        BigDecimal expected = new BigDecimal(arguments[2]);
         assertEquals("\nExpected: " + expected.toString() + "\nActual: " + calculate.toString(),0, calculate.compareTo(expected));
     }
 

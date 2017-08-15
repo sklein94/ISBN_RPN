@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Factorial implements Operation {
+    static{
+        Operators.listOfOperators.add("!");
+    }
     public BigDecimal calculate(BigDecimal... arr) throws Exception{
         if (arr.length == 1) {
             if (arr[0].toBigIntegerExact().compareTo(new BigInteger("0")) > 0) {

@@ -8,5 +8,6 @@ public interface OperationTest {
     void tooManyParameters() throws Exception;
     void operatorShouldBeValid() throws Exception;
     void operatorShouldBeInvalid() throws Exception;
+    void calculationOf(String... arguments) throws Exception;
     void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception;
 }

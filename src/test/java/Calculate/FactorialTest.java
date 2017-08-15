@@ -11,12 +11,12 @@ public class FactorialTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.factorialOf("1", "1");
-        this.factorialOf("2", "2");
-        this.factorialOf("3", "6");
-        this.factorialOf("4", "24");
-        this.factorialOf("5", "120");
-        this.factorialOf("6", "720");
+        this.calculationOf("1", "1");
+        this.calculationOf("2", "2");
+        this.calculationOf("3", "6");
+        this.calculationOf("4", "24");
+        this.calculationOf("5", "120");
+        this.calculationOf("6", "720");
     }
 
     @Test
@@ -34,13 +34,13 @@ public class FactorialTest implements OperationTest{
     }
 
     @Test
-    public void valueIsFloat() throws Exception{
+    public void valueIsNotFloat() throws Exception{
         Factorial factorial = new Factorial();
         try {
             factorial.calculate(new BigDecimal("1.1"));
             factorial.calculate(new BigDecimal("2.5"));
             factorial.calculate(new BigDecimal("106.453"));
-            fail("Es sollte eine Exception geworfen werden. Es wurde eine ungueltige Zahl angegeben.");
+            fail("Es sollte eine Exception geworfen werden. Es wurde mindestens eine ungueltige Zahl angegeben.");
         }
         catch (ArithmeticException arithmeticException) {
 
@@ -54,7 +54,7 @@ public class FactorialTest implements OperationTest{
             factorial.calculate();
             fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
         }
-        catch (NumberOfParametersException arithmeticException) {
+        catch (NumberOfParametersException numberOfParameterException) {
 
         }
     }
@@ -66,7 +66,7 @@ public class FactorialTest implements OperationTest{
             factorial.calculate(new BigDecimal(1), new BigDecimal(1));
             factorial.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
             factorial.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-            fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
+            fail("Es sollte eine Exception geworfen werden. Es wurden zu viele Parameter uebergeben.");
         }
         catch (NumberOfParametersException numberOfParameterException) {
 
@@ -80,22 +80,18 @@ public class FactorialTest implements OperationTest{
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        checkOperatorToCalculate("+", false);
-        checkOperatorToCalculate("*", false);
-        checkOperatorToCalculate("/", false);
-        checkOperatorToCalculate("-", false);
-        checkOperatorToCalculate("sqrt", false);
-        checkOperatorToCalculate("sqr", false);
-        checkOperatorToCalculate("%", false);
-        checkOperatorToCalculate("pow", false);
-
+        for (String temp : Operators.listOfOperators){
+            if (!temp.equals("!")){
+                checkOperatorToCalculate(temp, false);
+            }
+        }
     }
 
 
-    public void factorialOf(String leftParameter, String expectedResult) throws Exception {
+    public void calculationOf(String... arguments) throws Exception {
         Factorial factorial = new Factorial();
-        BigDecimal calculate = factorial.calculate(new BigDecimal(leftParameter));
-        BigDecimal expected = new BigDecimal(expectedResult);
+        BigDecimal calculate = factorial.calculate(new BigDecimal(arguments[0]));
+        BigDecimal expected = new BigDecimal(arguments[1]);
         String message = "\nExpected: " + expected.toString() + "\nActual: " + calculate.toString();
 
         assertEquals(message, 0, calculate.compareTo(expected));

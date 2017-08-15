@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Modulo implements Operation {
+    static{
+        Operators.listOfOperators.add("%");
+    }
     public BigDecimal calculate(BigDecimal... arr) throws Exception {
         if (arr.length == 2) {
             BigInteger leftParameter = arr[0].toBigIntegerExact();

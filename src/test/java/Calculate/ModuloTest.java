@@ -11,21 +11,21 @@ public class ModuloTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.moduloOf("11","5","1");
-        this.moduloOf("105","2","1");
-        this.moduloOf("35","6","5");
-        this.moduloOf("10","5","0");
-        this.moduloOf("10","2","0");
-        this.moduloOf("15","5","0");
+        this.calculationOf("11","5","1");
+        this.calculationOf("105","2","1");
+        this.calculationOf("35","6","5");
+        this.calculationOf("10","5","0");
+        this.calculationOf("10","2","0");
+        this.calculationOf("15","5","0");
 
-        this.moduloOf("5","3","2");
-        this.moduloOf("-5","3","-2");
-        this.moduloOf("-5","-3","-2");
+        this.calculationOf("5","3","2");
+        this.calculationOf("-5","3","-2");
+        this.calculationOf("-5","-3","-2");
 
     }
 
     @Test
-    public void valueIsFloat() throws Exception{
+    public void valueIsNotFloat() throws Exception{
         Modulo modulo = new Modulo();
         try {
             modulo.calculate(new BigDecimal("1.1"), new BigDecimal("1"));
@@ -37,6 +37,7 @@ public class ModuloTest implements OperationTest{
 
         }
     }
+
     @Test
     public void notEnoughParameters() throws Exception {
         Modulo modulo = new Modulo();
@@ -45,7 +46,7 @@ public class ModuloTest implements OperationTest{
             modulo.calculate(new BigDecimal("22"));
             fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
         }
-        catch (NumberOfParametersException arithmeticException) {
+        catch (NumberOfParametersException numberOfParameterException) {
 
         }
     }
@@ -57,7 +58,7 @@ public class ModuloTest implements OperationTest{
             modulo.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
             modulo.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
             modulo.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-            fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
+            fail("Es sollte eine Exception geworfen werden. Es wurden zu viele Parameter uebergeben.");
         }
         catch (NumberOfParametersException numberOfParameterException) {
 
@@ -71,21 +72,17 @@ public class ModuloTest implements OperationTest{
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-
-        checkOperatorToCalculate("+", false);
-        checkOperatorToCalculate("*", false);
-        checkOperatorToCalculate("/", false);
-        checkOperatorToCalculate("-", false);
-        checkOperatorToCalculate("sqrt", false);
-        checkOperatorToCalculate("sqr", false);
-        checkOperatorToCalculate("!", false);
-        checkOperatorToCalculate("pow", false);
+        for (String temp : Operators.listOfOperators){
+            if (!temp.equals("%")){
+                checkOperatorToCalculate(temp, false);
+            }
+        }
     }
 
-    public void moduloOf(String leftParameter, String rightParameter, String expectedResult) throws Exception {
+    public void calculationOf(String... arguments) throws Exception {
         Modulo modulo = new Modulo();
-        BigDecimal calculate = modulo.calculate(new BigDecimal(leftParameter),new BigDecimal(rightParameter));
-        BigDecimal expected = new BigDecimal(expectedResult);
+        BigDecimal calculate = modulo.calculate(new BigDecimal(arguments[0]),new BigDecimal(arguments[1]));
+        BigDecimal expected = new BigDecimal(arguments[2]);
         String message = "\nExpected: " + expected.toString() + "\nActual: " + calculate.toString();
 
         assertEquals(message, 0, calculate.compareTo(expected));

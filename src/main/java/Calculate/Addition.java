@@ -7,9 +7,7 @@ import java.util.ArrayList;
 
 public class Addition implements Operation {
     static{
-        ArrayList<String> listOfOperators = new ArrayList<String>();
-        listOfOperators.add("+");
-
+        Operators.listOfOperators.add("+");
     }
 
     public BigDecimal calculate(BigDecimal... arr) throws NumberOfParametersException {
