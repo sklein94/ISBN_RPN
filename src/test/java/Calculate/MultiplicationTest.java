@@ -34,29 +34,15 @@ public class MultiplicationTest implements OperationTest{
 
     @Test
     public void notEnoughParameters() throws Exception {
-        Multiplication multiplication = new Multiplication();
-        try {
-            multiplication.calculate();
-            multiplication.calculate(new BigDecimal("22"));
-            fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
-        }
-        catch (NumberOfParametersException numberOfParameterException) {
-
-        }
+        this.failOnThisNumberOfArguments(new BigDecimal(1));
+        this.failOnThisNumberOfArguments();
     }
 
     @Test
     public void tooManyParameters() throws Exception {
-        Multiplication multiplication = new Multiplication();
-        try {
-            multiplication.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-            multiplication.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-            multiplication.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-            fail("Es sollte eine Exception geworfen werden. Es wurden zu viele Parameter uebergeben.");
-        }
-        catch (NumberOfParametersException numberOfParameterException) {
-
-        }
+        this.failOnThisNumberOfArguments(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
+        this.failOnThisNumberOfArguments(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
+        this.failOnThisNumberOfArguments(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
     }
 
     @Test
@@ -70,6 +56,17 @@ public class MultiplicationTest implements OperationTest{
             if (!temp.equals("*")){
                 checkOperatorToCalculate(temp, false);
             }
+        }
+    }
+
+    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+        Multiplication multiplication = new Multiplication();
+        try {
+            multiplication.calculate(arguments);
+            fail("Es wurde eine falsche Anzahl an Parametern akzeptiert");
+        }
+        catch (NumberOfParametersException numberOfParameterException) {
+
         }
     }
 

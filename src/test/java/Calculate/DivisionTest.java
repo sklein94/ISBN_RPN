@@ -25,28 +25,14 @@ public class DivisionTest implements OperationTest{
 
     @Test
     public void notEnoughParameters() throws Exception {
-        Division division = new Division();
-        try {
-            division.calculate(new BigDecimal(1));
-            division.calculate();
-            fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
-        }
-        catch (NumberOfParametersException numberOfParameterException) {
-
-        }
+        this.failOnThisNumberOfArguments(new BigDecimal(1));
+        this.failOnThisNumberOfArguments();
     }
 
     @Test
     public void tooManyParameters() throws Exception {
-        Division division = new Division();
-        try {
-            division.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-            division.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-            fail("Es sollte eine Exception geworfen werden. Es wurden zu viele Parameter uebergeben.");
-        }
-        catch (NumberOfParametersException numberOfParameterException) {
-
-        }
+        this.failOnThisNumberOfArguments(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
+        this.failOnThisNumberOfArguments(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
     }
 
     @Test
@@ -60,6 +46,17 @@ public class DivisionTest implements OperationTest{
             if (!temp.equals("/")){
                 checkOperatorToCalculate(temp, false);
             }
+        }
+    }
+
+    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+        Division division = new Division();
+        try {
+            division.calculate(arguments);
+            fail("Es wurde eine falsche Anzahl an Parametern akzeptiert.");
+        }
+        catch (NumberOfParametersException numberOfParameterException) {
+
         }
     }
 

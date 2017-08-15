@@ -49,6 +49,10 @@ public class SquarerootTest implements OperationTest{
         }
     }
 
+    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+
+    }
+
     public void calculationOf(String... arguments) throws Exception {
         Squareroot squareroot = new Squareroot();
         BigDecimal calculate = squareroot.calculate(new BigDecimal(arguments[0]));

@@ -24,28 +24,14 @@ public class AdditionTest implements OperationTest{
 
     @Test
     public void notEnoughParameters() throws Exception {
-        Addition addition = new Addition();
-        try {
-            addition.calculate(new BigDecimal(1));
-            addition.calculate();
-            fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
-        }
-        catch (NumberOfParametersException numberOfParameterException) {
-
-        }
+        this.failOnThisNumberOfArguments(new BigDecimal(1));
+        this.failOnThisNumberOfArguments();
     }
 
     @Test
     public void tooManyParameters() throws Exception {
-        Addition addition = new Addition();
-        try {
-            addition.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-            addition.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-            fail("Es sollte eine Exception geworfen werden. Es wurden zu viele Parameter uebergeben.");
-        }
-        catch (NumberOfParametersException numberOfParameterException) {
-
-        }
+        this.failOnThisNumberOfArguments(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
+        this.failOnThisNumberOfArguments(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
     }
 
     @Test
@@ -62,6 +48,17 @@ public class AdditionTest implements OperationTest{
         }
     }
 
+    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+        Addition addition = new Addition();
+        try{
+            addition.calculate(arguments);
+            fail("Es wurde eine falsche Anzahl an Parametern akzeptiert.");
+        }
+        catch (NumberOfParametersException numberOfParametersException){
+
+        }
+
+    }
 
     public void calculationOf(String... arguments) throws Exception {
         Addition addition = new Addition();
