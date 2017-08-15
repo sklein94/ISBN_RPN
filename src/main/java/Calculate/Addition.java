@@ -1,15 +1,24 @@
 package Calculate;
 
+import Exceptions.NumberOfParametersException;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class Addition implements Operation {
-    public BigDecimal calculate(BigDecimal... arr) throws NumberOfParameterException {
+    static{
+        ArrayList<String> listOfOperators = new ArrayList<String>();
+        listOfOperators.add("+");
+
+    }
+
+    public BigDecimal calculate(BigDecimal... arr) throws NumberOfParametersException {
         if (arr.length == 2) {
             BigDecimal sum = arr[0].add(arr[1]);
             return sum;
         }
         else {
-            throw new NumberOfParameterException("Parameteranzahl: " + arr.length);
+            throw new NumberOfParametersException("Parameteranzahl: " + arr.length);
         }
     }
 

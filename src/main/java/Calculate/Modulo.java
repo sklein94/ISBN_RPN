@@ -1,13 +1,21 @@
 package Calculate;
 
+import Exceptions.NumberOfParametersException;
+
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class Modulo implements Operation {
-    public BigDecimal calculate(BigDecimal... arr) {
-        while (arr[0].compareTo(arr[1]) >= 0){
-            arr[0].subtract(arr[1]);
+    public BigDecimal calculate(BigDecimal... arr) throws Exception {
+        if (arr.length == 2) {
+            BigInteger leftParameter = arr[0].toBigIntegerExact();
+            BigInteger rightParameter = arr[1].toBigIntegerExact();
+            BigDecimal moduloOf = new BigDecimal(leftParameter.remainder(rightParameter));
+            return moduloOf;
         }
-        return arr[0];
+        else {
+            throw new NumberOfParametersException("Parameters: " + arr.length);
+        }
     }
 
     public boolean canCalculate(String operator) {

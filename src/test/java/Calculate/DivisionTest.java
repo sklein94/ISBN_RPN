@@ -1,5 +1,6 @@
 package Calculate;
 
+import Exceptions.NumberOfParametersException;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -30,7 +31,7 @@ public class DivisionTest implements OperationTest{
             division.calculate();
             fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
         }
-        catch (NumberOfParameterException numberOfParameterException) {
+        catch (NumberOfParametersException numberOfParameterException) {
 
         }
     }
@@ -43,7 +44,7 @@ public class DivisionTest implements OperationTest{
             division.calculate(new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
             fail("Es sollte eine Exception geworfen werden. Es wurden nicht genug Parameter uebergeben.");
         }
-        catch (NumberOfParameterException numberOfParameterException) {
+        catch (NumberOfParametersException numberOfParameterException) {
 
         }
     }

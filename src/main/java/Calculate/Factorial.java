@@ -1,5 +1,7 @@
 package Calculate;
 
+import Exceptions.NumberOfParametersException;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -22,7 +24,7 @@ public class Factorial implements Operation {
                 throw new ArithmeticException("Parameter enthaelt ungueltige Zahl(en).");
             }
         }
-        else throw new NumberOfParameterException("Falsche Anzahl an Parametern.");
+        else throw new NumberOfParametersException("Falsche Anzahl an Parametern.");
     }
 
     public boolean canCalculate(String operator) {
