@@ -7,8 +7,10 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 public class Squareroot implements Operation {
+    static String operator = "sqrt";
+
     static {
-        Operators.listOfOperators.add("sqrt");
+        Operators.listOfOperatorsOneOperand.add(Squareroot.operator);
     }
 
     public BigDecimal calculate(BigDecimal... arr) throws Exception {
@@ -21,6 +23,6 @@ public class Squareroot implements Operation {
     }
 
     public boolean canCalculate(String operator) {
-        return operator.equals("sqrt");
+        return operator.equals(Squareroot.operator);
     }
 }

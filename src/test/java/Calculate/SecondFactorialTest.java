@@ -51,16 +51,25 @@ public class SecondFactorialTest implements OperationTest{
 
     @Test
     public void operatorShouldBeValid() throws Exception {
-        checkOperatorToCalculate("fac", true);
+        checkOperatorToCalculate(SecondFactorial.operator, true);
     }
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperators){
-            if (!temp.equals("fac")){
+        for (String temp : Operators.listOfOperatorsOneOperand){
+            if (!temp.equals(SecondFactorial.operator)){
                 checkOperatorToCalculate(temp, false);
             }
         }
+    }
+
+    public void operatorIsIncluded() throws Exception {
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (temp.equals(SecondFactorial.operator)){
+                return;
+            }
+        }
+        fail("Operator dieser Operation ist nicht in der Liste: " + SecondFactorial.operator);
     }
 
     public void failOnThisArgument(String argument) throws Exception{

@@ -53,16 +53,25 @@ public class SquarerootTest implements OperationTest {
 
     @Test
     public void operatorShouldBeValid() throws Exception {
-        checkOperatorToCalculate("sqrt", true);
+        checkOperatorToCalculate(Squareroot.operator, true);
     }
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperators) {
-            if (!temp.equals("sqrt")) {
+        for (String temp : Operators.listOfOperatorsOneOperand) {
+            if (!temp.equals(Squareroot.operator)) {
                 checkOperatorToCalculate(temp, false);
             }
         }
+    }
+
+    public void operatorIsIncluded() throws Exception {
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (temp.equals(Squareroot.operator)){
+                return;
+            }
+        }
+        fail("Operator dieser Operation ist nicht in der Liste: " + Squareroot.operator);
     }
 
     private void failOnThisArgument(String leftParameter) throws Exception {

@@ -7,8 +7,10 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 public class Squaring implements Operation {
+    static String operator = "sqr";
+
     static{
-        Operators.listOfOperators.add("sqr");
+        Operators.listOfOperatorsOneOperand.add(Squaring.operator);
     }
     public BigDecimal calculate(BigDecimal... arr) throws Exception{
         if (arr.length == 1) {
@@ -20,6 +22,6 @@ public class Squaring implements Operation {
     }
 
     public boolean canCalculate(String operator) {
-        return operator.equals("sqr");
+        return operator.equals(Squaring.operator);
     }
 }

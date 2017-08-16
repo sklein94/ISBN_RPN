@@ -10,4 +10,5 @@ public interface OperationTest {
     void tooManyParameters() throws Exception;
     void operatorShouldBeValid() throws Exception;
     void operatorShouldBeInvalid() throws Exception;
+    void operatorIsIncluded() throws Exception;
 }

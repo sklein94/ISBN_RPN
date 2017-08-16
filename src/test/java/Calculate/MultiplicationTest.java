@@ -52,16 +52,25 @@ public class MultiplicationTest implements OperationTest{
 
     @Test
     public void operatorShouldBeValid() throws Exception {
-        checkOperatorToCalculate("*", true);
+        checkOperatorToCalculate(Multiplication.operator, true);
     }
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperators){
-            if (!temp.equals("*")){
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (!temp.equals(Multiplication.operator)){
                 checkOperatorToCalculate(temp, false);
             }
         }
+    }
+
+    public void operatorIsIncluded() throws Exception {
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (temp.equals(Multiplication.operator)){
+                return;
+            }
+        }
+        fail("Operator dieser Operation ist nicht in der Liste: " + Multiplication.operator);
     }
 
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {

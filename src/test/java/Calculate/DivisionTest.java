@@ -59,16 +59,25 @@ public class DivisionTest implements OperationTest{
 
     @Test
     public void operatorShouldBeValid() throws Exception {
-        checkOperatorToCalculate("/", true);
+        checkOperatorToCalculate(Division.operator, true);
     }
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperators){
-            if (!temp.equals("/")){
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (!temp.equals(Division.operator)){
                 checkOperatorToCalculate(temp, false);
             }
         }
+    }
+
+    public void operatorIsIncluded() throws Exception {
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (temp.equals(Division.operator)){
+                return;
+            }
+        }
+        fail("Operator dieser Operation ist nicht in der Liste: " + Division.operator);
     }
 
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {

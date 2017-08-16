@@ -5,8 +5,10 @@ import Exceptions.NumberOfParametersException;
 import java.math.BigDecimal;
 
 public class Subtraction implements Operation {
+    static String operator = "-";
+
     static{
-        Operators.listOfOperators.add("-");
+        Operators.listOfOperatorsWithTwoOperands.add(Subtraction.operator);
     }
 
     public BigDecimal calculate(BigDecimal... arr) throws NumberOfParametersException {
@@ -20,6 +22,6 @@ public class Subtraction implements Operation {
     }
 
     public boolean canCalculate(String operator) {
-        return operator.equals("-");
+        return operator.equals(Subtraction.operator);
     }
 }

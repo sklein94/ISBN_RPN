@@ -1,5 +1,6 @@
 package RPN;
 
+import java.math.BigDecimal;
 import java.util.Stack;
 
 import static java.lang.Math.pow;
@@ -13,12 +14,11 @@ public class RPN_Parser {
 
     private String stringToParse_Attribute;                 //Der String, der gespeichert wird, um später geparst zu werden
 
-
     //====================================================================================================
     //============================Konstruktoren===========================================================
     //====================================================================================================
 
-    public RPN_Parser(String stringToParse) {
+    protected RPN_Parser(String stringToParse) {
         this.setStringToParse(stringToParse);
     }
 

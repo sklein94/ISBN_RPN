@@ -64,16 +64,25 @@ public class DecimalPotencyTest implements OperationTest{
 
     @Test
     public void operatorShouldBeValid() throws Exception {
-        checkOperatorToCalculate("pow", true);
+        checkOperatorToCalculate(DecimalPotency.operator, true);
     }
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperators){
-            if (!temp.equals("pow")){
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (!temp.equals(DecimalPotency.operator)){
                 checkOperatorToCalculate(temp, false);
             }
         }
+    }
+
+    public void operatorIsIncluded() throws Exception {
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (temp.equals(DecimalPotency.operator)){
+                return;
+            }
+        }
+        fail("Operator dieser Operation ist nicht in der Liste: " + DecimalPotency.operator);
     }
 
     public void failOnTheseArguments(String leftParameter, String rightParameter) throws Exception{

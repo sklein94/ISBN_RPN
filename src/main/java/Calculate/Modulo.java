@@ -6,8 +6,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Modulo implements Operation {
+    static String operator = "%";
+
     static{
-        Operators.listOfOperators.add("%");
+        Operators.listOfOperatorsWithTwoOperands.add(operator);
     }
     public BigDecimal calculate(BigDecimal... arr) throws Exception {
         if (arr.length == 2) {
@@ -22,6 +24,6 @@ public class Modulo implements Operation {
     }
 
     public boolean canCalculate(String operator) {
-        return operator.equals("%");
+        return operator.equals(Modulo.operator);
     }
 }

@@ -1,7 +1,6 @@
 package Calculate;
 
 import Exceptions.NumberOfParametersException;
-import ch.obermuhlner.math.big.BigDecimalMath;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -52,16 +51,25 @@ public class FactorialTest implements OperationTest{
 
     @Test
     public void operatorShouldBeValid() throws Exception {
-        checkOperatorToCalculate("!", true);
+        checkOperatorToCalculate(Factorial.operator, true);
     }
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperators){
-            if (!temp.equals("!")){
+        for (String temp : Operators.listOfOperatorsOneOperand){
+            if (!temp.equals(Factorial.operator)){
                 checkOperatorToCalculate(temp, false);
             }
         }
+    }
+
+    public void operatorIsIncluded() throws Exception {
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (temp.equals(Factorial.operator)){
+                return;
+            }
+        }
+        fail("Operator dieser Operation ist nicht in der Liste: " + Factorial.operator);
     }
 
     public void failOnThisArgument(String argument) throws Exception{

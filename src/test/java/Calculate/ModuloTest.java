@@ -58,16 +58,25 @@ public class ModuloTest implements OperationTest{
 
     @Test
     public void operatorShouldBeValid() throws Exception {
-        checkOperatorToCalculate("%", true);
+        checkOperatorToCalculate(Modulo.operator, true);
     }
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperators){
-            if (!temp.equals("%")){
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (!temp.equals(Modulo.operator)){
                 checkOperatorToCalculate(temp, false);
             }
         }
+    }
+
+    public void operatorIsIncluded() throws Exception {
+        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+            if (temp.equals(Modulo.operator)){
+                return;
+            }
+        }
+        fail("Operator dieser Operation ist nicht in der Liste: " + Modulo.operator);
     }
 
     private void failOnTheseArguments(String leftParameter, String rightParameter) throws Exception{

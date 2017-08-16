@@ -7,8 +7,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class SecondFactorial implements Operation {
+    static String operator = "fac";
+
     static {
-        Operators.listOfOperators.add("fac");
+        Operators.listOfOperatorsOneOperand.add(SecondFactorial.operator);
     }
 
     public BigDecimal calculate(BigDecimal... arr) throws Exception {
@@ -19,6 +21,6 @@ public class SecondFactorial implements Operation {
     }
 
     public boolean canCalculate(String operator) {
-        return operator.equals("fac");
+        return operator.equals(SecondFactorial.operator);
     }
 }

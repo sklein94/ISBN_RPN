@@ -5,8 +5,10 @@ import Exceptions.NumberOfParametersException;
 import java.math.BigDecimal;
 
 public class Multiplication implements Operation {
+    static String operator = "*";
+
     static{
-        Operators.listOfOperators.add("*");
+        Operators.listOfOperatorsWithTwoOperands.add(operator);
     }
     public BigDecimal calculate(BigDecimal... arr) throws Exception {
         if (arr.length == 2){
@@ -18,6 +20,6 @@ public class Multiplication implements Operation {
     }
 
     public boolean canCalculate(String operator) {
-        return operator.equals("*");
+        return operator.equals(Multiplication.operator);
     }
 }
