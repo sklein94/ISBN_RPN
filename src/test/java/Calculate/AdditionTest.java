@@ -16,23 +16,24 @@ public class AdditionTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.additionOfValuesIsCorrect("1", "1", "2");
+        //Standardrechnung
         this.additionOfValuesIsCorrect("2", "2", "4");
-        this.additionOfValuesIsCorrect("3", "3", "6");
 
+        //1 Wert oder beide Werte 0
+        this.additionOfValuesIsCorrect("5", "0", "5");
         this.additionOfValuesIsCorrect("0", "0", "0");
+        this.additionOfValuesIsCorrect("0", "5", "5");
 
-        this.additionOfValuesIsCorrect("1", "-1", "0");
-        this.additionOfValuesIsCorrect("-2", "2", "0");
-        this.additionOfValuesIsCorrect("-3", "-3", "-6");
+        //1 Wert oder beide Werte negativ
+        this.additionOfValuesIsCorrect("2", "-1", "1");
+        this.additionOfValuesIsCorrect("-2", "1", "1");
+        this.additionOfValuesIsCorrect("-2", "-1", "-3");
 
+        //Kommazahlen
         this.additionOfValuesIsCorrect("1.55", "2.45", "4");
-        this.additionOfValuesIsCorrect("-1.15", "-1.15", "-2.3");
-        this.additionOfValuesIsCorrect("1.1255", "3.1255", "4.251");
-        this.additionOfValuesIsCorrect("1.111", "3.111", "4.222");
-
         this.additionOfValuesIsCorrect("1.11111111111111111111111111111111111", "3.11111111111111111111111111111111111", "4.22222222222222222222222222222222222");
 
+        //Sehr hohe oder sehr niedrige Zahlen
         this.additionOfValuesIsCorrect("1E+1000", "1E+1000", "2E+1000");
         this.additionOfValuesIsCorrect("1E-1000", "1E-1000", "2E-1000");
     }
