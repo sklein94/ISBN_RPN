@@ -17,12 +17,15 @@ public class FactorialTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
+        //Niedrigste Zahl
         this.factorialOfValuesIsCorrect("0", "1");
 
+        //Die ersten 3 Fakultäten
         this.factorialOfValuesIsCorrect("1", "1");
         this.factorialOfValuesIsCorrect("2", "2");
         this.factorialOfValuesIsCorrect("3", "6");
 
+        //Etwas höhere Fakultät
         this.factorialOfValuesIsCorrect("10", "3628800");
     }
 
