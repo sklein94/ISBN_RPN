@@ -21,6 +21,11 @@ public class SquaringTest implements OperationTest{
         this.squaringOfValueIsCorrect("0", "0");
         this.squaringOfValueIsCorrect("1", "1");
         this.squaringOfValueIsCorrect("100", "10000");
+
+        this.squaringOfValueIsCorrect("1.5", "2.25");
+
+        this.squaringOfValueIsCorrect("1E-100", "1E-200");
+        this.squaringOfValueIsCorrect("1E+100", "1E+200");
     }
 
     @Test

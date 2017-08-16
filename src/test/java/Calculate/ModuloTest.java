@@ -25,6 +25,9 @@ public class ModuloTest implements OperationTest{
         this.moduloOfValuesIsCorrect("-5","3","-2");
         this.moduloOfValuesIsCorrect("-5","-3","-2");
 
+        this.moduloOfValuesIsCorrect("1E+1000","1E+1000","0");
+        this.moduloOfValuesIsCorrect("1E+1000","1E+1001","1E1000");
+
     }
 
     @Test

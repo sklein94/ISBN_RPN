@@ -40,7 +40,9 @@ public class DecimalPotencyTest implements OperationTest{
         this.decimalPotencyOfValuesIsCorrect("16","-0.25","0.5");
 //        this.decimalPotencyOfValuesIsCorrect("59","-0.236","0.38201368868");
 
+//        this.decimalPotencyOfValuesIsCorrect("0.33333333333333333333333333333333333","2","0.11111111111111111111111111111111111");
 
+        this.decimalPotencyOfValuesIsCorrect("1E+1000", "2", "1E+2000");
     }
 
     @Test
@@ -89,10 +91,10 @@ public class DecimalPotencyTest implements OperationTest{
         decimalPotency.calculate(arguments);
     }
 
-    public void decimalPotencyOfValuesIsCorrect(String... arguments) throws Exception {
+    public void decimalPotencyOfValuesIsCorrect(String leftParameter, String rightParameter, String expectedValue) throws Exception {
         DecimalPotency decimalPotency = new DecimalPotency();
-        BigDecimal calculate = decimalPotency.calculate(new BigDecimal(arguments[0]), new BigDecimal(arguments[1]));
-        BigDecimal expected = new BigDecimal(arguments[2]);
+        BigDecimal calculate = decimalPotency.calculate(new BigDecimal(leftParameter), new BigDecimal(rightParameter));
+        BigDecimal expected = new BigDecimal(expectedValue);
         String message = "\nExpected: " + expected.toString() + "\nActual: " + calculate.toString();
 
         assertEquals(message, 0, calculate.compareTo(expected));

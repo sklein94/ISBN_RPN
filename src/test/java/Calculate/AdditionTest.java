@@ -30,6 +30,11 @@ public class AdditionTest implements OperationTest{
         this.additionOfValuesIsCorrect("-1.15", "-1.15", "-2.3");
         this.additionOfValuesIsCorrect("1.1255", "3.1255", "4.251");
         this.additionOfValuesIsCorrect("1.111", "3.111", "4.222");
+
+        this.additionOfValuesIsCorrect("1.11111111111111111111111111111111111", "3.11111111111111111111111111111111111", "4.22222222222222222222222222222222222");
+
+        this.additionOfValuesIsCorrect("1E+1000", "1E+1000", "2E+1000");
+        this.additionOfValuesIsCorrect("1E-1000", "1E-1000", "2E-1000");
     }
 
 

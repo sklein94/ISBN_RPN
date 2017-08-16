@@ -30,6 +30,11 @@ public class MultiplicationTest implements OperationTest{
         this.multiplicationOfValuesIsCorrect("-1.15", "-1.15", "1.3225");
         this.multiplicationOfValuesIsCorrect("1.1255", "3.1255", "3.51775025");
         this.multiplicationOfValuesIsCorrect("1.111", "3.111", "3.456321");
+
+        this.multiplicationOfValuesIsCorrect("0.1111111111111111111111111111111111111111", "3", "0.3333333333333333333333333333333333333333");
+
+        this.multiplicationOfValuesIsCorrect("1E+100", "1E+900", "1E+1000");
+        this.multiplicationOfValuesIsCorrect("1E-100", "1E-900", "1E-1000");
     }
 
     @Test

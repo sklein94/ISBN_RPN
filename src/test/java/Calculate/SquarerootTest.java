@@ -23,6 +23,11 @@ public class SquarerootTest implements OperationTest {
         //this.SquarerootOfValuesIsCorrect("1.78", "1.33416640641");
 
         this.SquarerootOfValuesIsCorrect("0", "0");
+
+        //this.SquarerootOfValuesIsCorrect("0.11111", "0.33333");
+
+        this.SquarerootOfValuesIsCorrect("1E+1000", "1E+500");
+        this.SquarerootOfValuesIsCorrect("1E-100", "1E-50");
     }
 
     @Test

@@ -30,6 +30,11 @@ public class SubtractionTest implements OperationTest{
         this.subtractionOfValuesIsCorrect("-1.15", "-1.15", "0");
         this.subtractionOfValuesIsCorrect("1.1255", "3.1255", "-2");
         this.subtractionOfValuesIsCorrect("1.111", "3.111", "-2");
+
+        this.subtractionOfValuesIsCorrect("4.3333333333333333333333333333333333333333333333333333333333333333333333","2.3333333333333333333333333333333333333333333333333333333333333333333333","2");
+
+        this.subtractionOfValuesIsCorrect("1E+500", "1E+500", "0");
+        this.subtractionOfValuesIsCorrect("3E-500", "1E-500", "2E-500");
     }
 
 

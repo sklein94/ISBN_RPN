@@ -18,7 +18,6 @@ public class DivisionTest implements OperationTest{
     public void shouldBeCorrect() throws Exception {
         this.divisionOfValuesIsCorrect("1", "1", "1");
         this.divisionOfValuesIsCorrect("2", "2", "1");
-        this.divisionOfValuesIsCorrect("3", "3", "1");
 
         this.divisionOfValuesIsCorrect("1", "-1", "-1");
         this.divisionOfValuesIsCorrect("-2", "2", "-1");
@@ -29,7 +28,12 @@ public class DivisionTest implements OperationTest{
         this.divisionOfValuesIsCorrect("1.11111", "1.2", "0.925925");
 
 
-        this.divisionOfValuesIsCorrect("1", "3", "0.3333333333333333333333333333333333333333333333333");
+        this.divisionOfValuesIsCorrect("1", "3", "0.3333333333333333333333333333333333");   //34 Zeichen nach dem Komma
+        this.divisionOfValuesIsCorrect("0.33333333333333333333333333333333333", "3", "0.1111111111111111111111111111111111");  //34 Zeichen nach dem Komma
+
+
+        this.divisionOfValuesIsCorrect("1E+1000", "1E+1000", "1");
+        this.divisionOfValuesIsCorrect("1E+1000", "1E+10", "1E990");
     }
 
     @Test
