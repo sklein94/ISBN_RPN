@@ -16,21 +16,24 @@ public class SecondFactorialTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
+        //Niedrigste Zahl
         this.secondFactorialOfValuesIsCorrect("0", "1");
 
+        //Die ersten 3 Fakultäten
         this.secondFactorialOfValuesIsCorrect("1", "1");
         this.secondFactorialOfValuesIsCorrect("2", "2");
         this.secondFactorialOfValuesIsCorrect("3", "6");
 
+        //Etwas höhere Fakultät
         this.secondFactorialOfValuesIsCorrect("10", "3628800");
     }
 
     @Test
     public void invalidValues() throws Exception{
+        //Negative Zahl
         this.failOnThisArgument("-1");
-        this.failOnThisArgument("-10000");
 
-        this.failOnThisArgument("1.5");
+        //Kommazahl
         this.failOnThisArgument("3.67895678");
     }
 
