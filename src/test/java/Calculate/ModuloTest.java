@@ -11,16 +11,16 @@ public class ModuloTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.calculationOf("11","5","1");
-        this.calculationOf("105","2","1");
-        this.calculationOf("35","6","5");
-        this.calculationOf("10","5","0");
-        this.calculationOf("10","2","0");
-        this.calculationOf("15","5","0");
+        this.moduloOfValuesIsCorrect("11","5","1");
+        this.moduloOfValuesIsCorrect("105","2","1");
+        this.moduloOfValuesIsCorrect("35","6","5");
+        this.moduloOfValuesIsCorrect("10","5","0");
+        this.moduloOfValuesIsCorrect("10","2","0");
+        this.moduloOfValuesIsCorrect("15","5","0");
 
-        this.calculationOf("5","3","2");
-        this.calculationOf("-5","3","-2");
-        this.calculationOf("-5","-3","-2");
+        this.moduloOfValuesIsCorrect("5","3","2");
+        this.moduloOfValuesIsCorrect("-5","3","-2");
+        this.moduloOfValuesIsCorrect("-5","-3","-2");
 
     }
 
@@ -84,10 +84,10 @@ public class ModuloTest implements OperationTest{
         }
     }
 
-    private void calculationOf(String... arguments) throws Exception {
+    private void moduloOfValuesIsCorrect(String leftParameter, String rightParameter, String expectedValue) throws Exception {
         Modulo modulo = new Modulo();
-        BigDecimal calculate = modulo.calculate(new BigDecimal(arguments[0]),new BigDecimal(arguments[1]));
-        BigDecimal expected = new BigDecimal(arguments[2]);
+        BigDecimal calculate = modulo.calculate(new BigDecimal(leftParameter),new BigDecimal(rightParameter));
+        BigDecimal expected = new BigDecimal(expectedValue);
         String message = "\nExpected: " + expected.toString() + "\nActual: " + calculate.toString();
 
         assertEquals(message, 0, calculate.compareTo(expected));
