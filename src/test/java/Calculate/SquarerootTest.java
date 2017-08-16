@@ -16,24 +16,27 @@ public class SquarerootTest implements OperationTest {
 
     @Test
     public void shouldBeCorrect() throws Exception {
+        //Normale Wurzelziehung
         this.SquarerootOfValuesIsCorrect("4", "2");
         this.SquarerootOfValuesIsCorrect("268435456", "16384");
 
+        //Kommazahlen
         this.SquarerootOfValuesIsCorrect("2.25", "1.5");
-        //this.SquarerootOfValuesIsCorrect("1.78", "1.33416640641");
+//        this.SquarerootOfValuesIsCorrect("1.78", "1.33416640641");
+//        this.SquarerootOfValuesIsCorrect("0.11111", "0.33333");
 
+        //Wurzel aus 0
         this.SquarerootOfValuesIsCorrect("0", "0");
 
-        //this.SquarerootOfValuesIsCorrect("0.11111", "0.33333");
-
+        //Sehr hohe und sehr niedrige Zahlen
         this.SquarerootOfValuesIsCorrect("1E+1000", "1E+500");
         this.SquarerootOfValuesIsCorrect("1E-100", "1E-50");
     }
 
     @Test
     public void invalidArguments() throws Exception {
+        //Negative Zahl
         this.failOnThisArgument("-1");
-        this.failOnThisArgument("-0.255678");
     }
 
     @Test
