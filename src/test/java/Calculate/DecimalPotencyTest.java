@@ -16,33 +16,37 @@ public class DecimalPotencyTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.decimalPotencyOfValuesIsCorrect("2","2","4");
+        //Normale Potenzen
         this.decimalPotencyOfValuesIsCorrect("16","2","256");
 
-        this.decimalPotencyOfValuesIsCorrect("-2","2","4");
+        //Erster Wert negativ
         this.decimalPotencyOfValuesIsCorrect("-16","2","256");
 
+        //Höhere Potenzen als 2
         this.decimalPotencyOfValuesIsCorrect("-2","3","-8");
         this.decimalPotencyOfValuesIsCorrect("-16","3","-4096");
         this.decimalPotencyOfValuesIsCorrect("2","6","64");
         this.decimalPotencyOfValuesIsCorrect("-2","6","64");
 
+        //0 oder 1 als Potenz
         this.decimalPotencyOfValuesIsCorrect("16","0","1");
         this.decimalPotencyOfValuesIsCorrect("16","1","16");
         this.decimalPotencyOfValuesIsCorrect("0","0","1");
 
+        //Negative Zahl in der Potenz
         this.decimalPotencyOfValuesIsCorrect("16","-1","0.0625");
         this.decimalPotencyOfValuesIsCorrect("16","-2","0.00390625");
 
+        //Kommazahlen in der Potenz
         this.decimalPotencyOfValuesIsCorrect("16","0.25","2");
 //        this.decimalPotencyOfValuesIsCorrect("59","0.236","2.61770724353");
 
-        this.decimalPotencyOfValuesIsCorrect("16","-0.25","0.5");
-//        this.decimalPotencyOfValuesIsCorrect("59","-0.236","0.38201368868");
-
+        //Lange kommazahl
 //        this.decimalPotencyOfValuesIsCorrect("0.33333333333333333333333333333333333","2","0.11111111111111111111111111111111111");
 
+        //Sehr hohe und sehr tiefe Werte
         this.decimalPotencyOfValuesIsCorrect("1E+1000", "2", "1E+2000");
+        this.decimalPotencyOfValuesIsCorrect("1E-1000", "2", "1E-2000");
     }
 
     @Test

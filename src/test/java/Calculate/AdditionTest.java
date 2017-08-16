@@ -26,7 +26,7 @@ public class AdditionTest implements OperationTest{
 
         //1 Wert oder beide Werte negativ
         this.additionOfValuesIsCorrect("2", "-1", "1");
-        this.additionOfValuesIsCorrect("-2", "1", "1");
+        this.additionOfValuesIsCorrect("-2", "1", "-1");
         this.additionOfValuesIsCorrect("-2", "-1", "-3");
 
         //Kommazahlen
