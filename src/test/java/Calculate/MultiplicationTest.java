@@ -16,23 +16,23 @@ public class MultiplicationTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.multiplicationOfValuesIsCorrect("1", "1", "1");
+        //Normale Multiplikation
         this.multiplicationOfValuesIsCorrect("2", "2", "4");
-        this.multiplicationOfValuesIsCorrect("3", "3", "9");
 
+        //Multiplikation mit 0
         this.multiplicationOfValuesIsCorrect("0", "0", "0");
+        this.multiplicationOfValuesIsCorrect("100", "0", "0");
 
+        //Einer oder beide Werte negativ
         this.multiplicationOfValuesIsCorrect("1", "-1", "-1");
         this.multiplicationOfValuesIsCorrect("-2", "2", "-4");
         this.multiplicationOfValuesIsCorrect("-3", "-3", "9");
 
-        this.multiplicationOfValuesIsCorrect("1.55", "2.45", "3.7975");
-        this.multiplicationOfValuesIsCorrect("-1.15", "-1.15", "1.3225");
-        this.multiplicationOfValuesIsCorrect("1.1255", "3.1255", "3.51775025");
+        //Kommazahlen
         this.multiplicationOfValuesIsCorrect("1.111", "3.111", "3.456321");
-
         this.multiplicationOfValuesIsCorrect("0.1111111111111111111111111111111111111111", "3", "0.3333333333333333333333333333333333333333");
 
+        //Sehr hohe oder sehr niedrige Zahlen
         this.multiplicationOfValuesIsCorrect("1E+100", "1E+900", "1E+1000");
         this.multiplicationOfValuesIsCorrect("1E-100", "1E-900", "1E-1000");
     }
