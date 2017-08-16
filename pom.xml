@@ -13,6 +13,15 @@
             <artifactId>junit</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>big-math</groupId>
+            <artifactId>big-math</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.obermuhlner</groupId>
+            <artifactId>big-math</artifactId>
+            <version>1.2.1</version>
+        </dependency>
     </dependencies>
 
 
