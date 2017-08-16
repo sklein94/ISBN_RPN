@@ -1,5 +1,6 @@
 package RPN;
 
+import Calculate.Operators;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -10,15 +11,16 @@ public class RPN_ParserTest {
 
     @Test
     public void checkRPNStringShouldBeValid() {
-        this.testString("1 2 +", true);
-        this.testString("1 2 -", true);
-        this.testString("1 2 *", true);
-        this.testString("1 2 /", true);
-        this.testString("1 2 %", true);
-        this.testString("2 !", true);
-        this.testString("1 2 pow", true);
-        this.testString("4 sqrt", true);
-        this.testString("4 sqr", true);
+        String testStringTwoOperands = "1 2 ";
+        for (String temp : Operators.listOfOperatorsWithTwoOperands) {
+            this.testString(testStringTwoOperands + temp, true);
+        }
+
+        String testStringOneOperand = "4";
+        for (String temp : Operators.listOfOperatorsWithTwoOperands) {
+            this.testString(testStringOneOperand + temp, true);
+        }
+
         this.testString("1 2 + 1 2 - /", true);
         this.testString("1 2 3 4 + + +", true);
         this.testString("-1 2 + -3 -4 + +", true);
@@ -52,37 +54,25 @@ public class RPN_ParserTest {
 
     @Test
     public void checkRPNNumberOfOperandsFunctionCorrect() {
-        this.testString("1 2+ ", 2);
-        this.testString("1 2 3 4 5 6 7 8 9 0 +", 10);
     }
 
 
     @Test
     public void checkRPNNumberOfOperantorsWithTwoOperantsFunctionCorrect() {
-        this.testString("1 +  - * / ^ % 2", 6);
-        this.testString("- - + + / / % + sqrt sqr ! pow", 9);
     }
 
     @Test
     public void checkRPNNumberOfOperantorsWithOneOperantFunctionCorrect() {
-        this.testString("sqrt sqr sqrt !", 4);
-        this.testString("! ! ! sqrt sqr", 5);
     }
 
 
     private void testString(String stringToTest, boolean shouldBeCorrect) {
         RPN_Parser rpnTestStringToTest = new RPN_Parser(stringToTest);
         if (shouldBeCorrect) {
-            assertTrue("Fehler beim Testen von: '" + stringToTest, RPN_Parser.validStringToParse(rpnTestStringToTest));
+            assertTrue("Fehler beim Testen von: '" + stringToTest, rpnTestStringToTest.stringIsValidToParse(stringToTest));
         }
         else {
-            assertFalse("Fehler beim Testen von: '" + stringToTest, RPN_Parser.validStringToParse(rpnTestStringToTest));
+            assertFalse("Fehler beim Testen von: '" + stringToTest,rpnTestStringToTest.stringIsValidToParse(stringToTest));
         }
     }
-
-    private void testString(String stringToTest, double expectedValue) {
-        RPN_Parser rpnTestStringToTest = new RPN_Parser(stringToTest);
-        assertEquals(expectedValue, RPN_Parser.parseRPN(rpnTestStringToTest), 0.0001);
-    }
-
 }

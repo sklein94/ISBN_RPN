@@ -1,6 +1,7 @@
 package RPN;
 
-import java.math.BigDecimal;
+import Calculate.Operators;
+
 import java.util.Stack;
 
 import static java.lang.Math.pow;
@@ -40,6 +41,97 @@ public class RPN_Parser {
 
     //====================================================================================================
     //============================Parsen - Methoden zum Aufrufen von Außen================================
+    //====================================================================================================
+
+
+    //====================================================================================================
+    //============================NEUE METHODEN ANFANG ANGADSASDASDASDASDA================================
+    //====================================================================================================
+
+    boolean stringIsValidToParse(String stringToCheck) {
+        boolean ok = this.allArgumentsValid(stringToCheck);
+        ok = ok && this.correctNumberAndPositioningOfArguments(stringToCheck);
+
+        return ok;
+    }
+
+
+    private boolean allArgumentsValid(String stringToCheck){
+        boolean ok = false;
+
+        String[] splittedStringToCheck = stringToCheck.split(" ");
+        for (String temp : splittedStringToCheck){
+            for(String tempOperatorsTwoOperands : Operators.listOfOperatorsWithTwoOperands){
+                ok = ok || temp.equals(tempOperatorsTwoOperands);
+            }
+            for(String tempOperatorsOneOperand : Operators.listOfOperatorsWithTwoOperands){
+                ok = ok || temp.equals(tempOperatorsOneOperand);
+            }
+            ok = ok || this.isNumber(temp);
+        }
+
+        return ok;
+    }
+
+    private boolean correctNumberAndPositioningOfArguments(String stringToCheck){
+        boolean ok = true;
+
+        for (int i = 1; i < stringToCheck.length(); i++){
+            String temp = stringToCheck.substring(0, i);
+            ok = ok && this.hasMoreOperandsThanOperatorsWithTwoArguments(temp);
+            ok = ok && this.hasMoreOrEqualOperandsComparedToOperatorsWithOneArgument(temp);
+        }
+
+        return ok;
+    }
+
+    private boolean hasMoreOperandsThanOperatorsWithTwoArguments(String stringToCheck){
+        return this.countNumberOfOperatorsWithTwoOperators(stringToCheck) < this.countNumberOfOperands(stringToCheck);
+    }
+
+    private boolean hasMoreOrEqualOperandsComparedToOperatorsWithOneArgument(String stringToCheck){
+        return this.countNumberOfOperatorsWithOneOperator(stringToCheck) >= this.countNumberOfOperands(stringToCheck);
+    }
+
+    private int countNumberOfOperands(String stringToCheck){
+        int count = 0;
+        String[] splittedString = stringToCheck.split(" ");
+        for(String temp : splittedString){
+            if (this.isNumber(temp)){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private int countNumberOfOperatorsWithTwoOperators(String stringToCheck){
+        int count = 0;
+        String[] splittedString = stringToCheck.split(" ");
+        for(String temp : splittedString){
+            for (String op : Operators.listOfOperatorsWithTwoOperands){
+                if(temp.equals(op)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private int countNumberOfOperatorsWithOneOperator(String stringToCheck){
+        int count = 0;
+        String[] splittedString = stringToCheck.split(" ");
+        for(String temp : splittedString){
+            for (String op : Operators.listOfOperatorsOneOperand){
+                if(temp.equals(op)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    //====================================================================================================
+    //============================NEUE MEthoden ende ENDE ENDE ASDASDASDASDASDASDASD======================
     //====================================================================================================
 
     public static double parseString(String stringToParse) {
