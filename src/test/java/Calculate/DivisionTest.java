@@ -16,22 +16,24 @@ public class DivisionTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.divisionOfValuesIsCorrect("1", "1", "1");
+        //Normale Rechnung
         this.divisionOfValuesIsCorrect("2", "2", "1");
 
+        //1 Wert oder beide Werte negativ
         this.divisionOfValuesIsCorrect("1", "-1", "-1");
         this.divisionOfValuesIsCorrect("-2", "2", "-1");
         this.divisionOfValuesIsCorrect("-3", "-3", "1");
 
+        //Kommazahlen
         this.divisionOfValuesIsCorrect("2.25", "5", "0.45");
         this.divisionOfValuesIsCorrect("-3.15", "3", "-1.05");
         this.divisionOfValuesIsCorrect("1.11111", "1.2", "0.925925");
 
-
+        //Sehr lange kommazahlen bzw periodisches Ergebnis
         this.divisionOfValuesIsCorrect("1", "3", "0.3333333333333333333333333333333333");   //34 Zeichen nach dem Komma
         this.divisionOfValuesIsCorrect("0.33333333333333333333333333333333333", "3", "0.1111111111111111111111111111111111");  //34 Zeichen nach dem Komma
 
-
+        //Sehr hohe oder sehr niedrige Zahlen
         this.divisionOfValuesIsCorrect("1E+1000", "1E+1000", "1");
         this.divisionOfValuesIsCorrect("1E+1000", "1E+10", "1E990");
     }
