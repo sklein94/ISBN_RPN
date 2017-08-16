@@ -15,7 +15,7 @@ public class Addition implements Operation {
             return sum;
         }
         else {
-            throw new NumberOfParametersException("Parameteranzahl: " + arr.length);
+            throw new NumberOfParametersException("Parameters: " + arr.length);
         }
     }
 

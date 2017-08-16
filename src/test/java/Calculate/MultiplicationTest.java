@@ -11,25 +11,20 @@ public class MultiplicationTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.calculationOf("1","1","1");
-        this.calculationOf("1","2","2");
-        this.calculationOf("3","3","9");
+        this.multiplicationOfValuesIsCorrect("1", "1", "1");
+        this.multiplicationOfValuesIsCorrect("2", "2", "4");
+        this.multiplicationOfValuesIsCorrect("3", "3", "9");
 
-        this.calculationOf("-1","2","-2");
-        this.calculationOf("1","-2","-2");
-        this.calculationOf("-1","-2","2");
+        this.multiplicationOfValuesIsCorrect("0", "0", "0");
 
-        this.calculationOf("0","0","0");
-        this.calculationOf("0","5000","0");
-        this.calculationOf("5000","0","0");
+        this.multiplicationOfValuesIsCorrect("1", "-1", "-1");
+        this.multiplicationOfValuesIsCorrect("-2", "2", "-4");
+        this.multiplicationOfValuesIsCorrect("-3", "-3", "9");
 
-        this.calculationOf("1.5","2","3");
-        this.calculationOf("1.5","1.5","2.25");
-        this.calculationOf("1.55","2.123","3.29065");
-
-        this.calculationOf("1.55","-2.123","-3.29065");
-        this.calculationOf("-1.55","2.123","-3.29065");
-        this.calculationOf("-1.55","-2.123","3.29065");
+        this.multiplicationOfValuesIsCorrect("1.55", "2.45", "3.7975");
+        this.multiplicationOfValuesIsCorrect("-1.15", "-1.15", "1.3225");
+        this.multiplicationOfValuesIsCorrect("1.1255", "3.1255", "3.51775025");
+        this.multiplicationOfValuesIsCorrect("1.111", "3.111", "3.456321");
     }
 
     @Test
@@ -59,7 +54,7 @@ public class MultiplicationTest implements OperationTest{
         }
     }
 
-    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+    private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Multiplication multiplication = new Multiplication();
         try {
             multiplication.calculate(arguments);
@@ -70,16 +65,16 @@ public class MultiplicationTest implements OperationTest{
         }
     }
 
-    public void calculationOf(String... arguments) throws Exception {
+    private void multiplicationOfValuesIsCorrect(String leftArgument, String rightArgument, String expectedValue) throws Exception {
         Multiplication multiplication = new Multiplication();
-        BigDecimal calculate = multiplication.calculate(new BigDecimal(arguments[0]),new BigDecimal(arguments[1]));
-        BigDecimal expected = new BigDecimal(arguments[2]);
+        BigDecimal calculate = multiplication.calculate(new BigDecimal(leftArgument),new BigDecimal(rightArgument));
+        BigDecimal expected = new BigDecimal(expectedValue);
         String message = "\nExpected: " + expected.toString() + "\nActual: " + calculate.toString();
 
         assertEquals(message, 0, calculate.compareTo(expected));
     }
 
-    public void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
+    private void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
         Multiplication multiplication = new Multiplication();
         String message = "Operator: " + operator;
         if (shouldBeCorrect) {

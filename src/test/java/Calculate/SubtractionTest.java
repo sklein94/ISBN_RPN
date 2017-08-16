@@ -11,20 +11,20 @@ public class SubtractionTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.subtractionnOf("1", "1", "0");
-        this.subtractionnOf("2", "2", "0");
-        this.subtractionnOf("3", "3", "0");
+        this.subtractionnOfValuesIsCorrect("1", "1", "0");
+        this.subtractionnOfValuesIsCorrect("2", "2", "0");
+        this.subtractionnOfValuesIsCorrect("3", "3", "0");
 
-        this.subtractionnOf("0", "0", "0");
+        this.subtractionnOfValuesIsCorrect("0", "0", "0");
 
-        this.subtractionnOf("1", "-1", "2");
-        this.subtractionnOf("-2", "2", "-4");
-        this.subtractionnOf("-3", "-3", "0");
+        this.subtractionnOfValuesIsCorrect("1", "-1", "2");
+        this.subtractionnOfValuesIsCorrect("-2", "2", "-4");
+        this.subtractionnOfValuesIsCorrect("-3", "-3", "0");
 
-        this.subtractionnOf("1.55", "2.45", "-0.9");
-        this.subtractionnOf("-1.15", "-1.15", "0");
-        this.subtractionnOf("1.1255", "3.1255", "-2");
-        this.subtractionnOf("1.111", "3.111", "-2");
+        this.subtractionnOfValuesIsCorrect("1.55", "2.45", "-0.9");
+        this.subtractionnOfValuesIsCorrect("-1.15", "-1.15", "0");
+        this.subtractionnOfValuesIsCorrect("1.1255", "3.1255", "-2");
+        this.subtractionnOfValuesIsCorrect("1.111", "3.111", "-2");
     }
 
 
@@ -65,7 +65,7 @@ public class SubtractionTest implements OperationTest{
         }
     }
 
-    private void subtractionnOf(String leftParameter, String rightParameter, String expectedValue) throws Exception {
+    private void subtractionnOfValuesIsCorrect(String leftParameter, String rightParameter, String expectedValue) throws Exception {
         Subtraction subtraction = new Subtraction();
         BigDecimal calculate = subtraction.calculate(new BigDecimal(leftParameter), new BigDecimal(rightParameter));
         BigDecimal expected = new BigDecimal(expectedValue);

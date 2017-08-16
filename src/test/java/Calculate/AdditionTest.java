@@ -1,29 +1,35 @@
 package Calculate;
 
 import Exceptions.NumberOfParametersException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
 public class AdditionTest implements OperationTest{
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.additionOf("1", "1", "2");
-        this.additionOf("2", "2", "4");
-        this.additionOf("3", "3", "6");
+        this.additionOfValuesIsCorrect("1", "1", "2");
+        this.additionOfValuesIsCorrect("2", "2", "4");
+        this.additionOfValuesIsCorrect("3", "3", "6");
 
-        this.additionOf("0", "0", "0");
+        this.additionOfValuesIsCorrect("0", "0", "0");
 
-        this.additionOf("1", "-1", "0");
-        this.additionOf("-2", "2", "0");
-        this.additionOf("-3", "-3", "-6");
+        this.additionOfValuesIsCorrect("1", "-1", "0");
+        this.additionOfValuesIsCorrect("-2", "2", "0");
+        this.additionOfValuesIsCorrect("-3", "-3", "-6");
 
-        this.additionOf("1.55", "2.45", "4");
-        this.additionOf("-1.15", "-1.15", "-2.3");
-        this.additionOf("1.1255", "3.1255", "4.251");
-        this.additionOf("1.111", "3.111", "4.222");
+        this.additionOfValuesIsCorrect("1.55", "2.45", "4");
+        this.additionOfValuesIsCorrect("-1.15", "-1.15", "-2.3");
+        this.additionOfValuesIsCorrect("1.1255", "3.1255", "4.251");
+        this.additionOfValuesIsCorrect("1.111", "3.111", "4.222");
     }
 
 
@@ -55,17 +61,14 @@ public class AdditionTest implements OperationTest{
 
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Addition addition = new Addition();
-        try{
-            addition.calculate(arguments);
-            fail("Es wurde eine falsche Anzahl an Parametern akzeptiert.");
-        }
-        catch (NumberOfParametersException numberOfParametersException){
 
-        }
+        expectedException.expect(NumberOfParametersException.class);
+        expectedException.expectMessage(equalTo("Parameters: " + arguments.length));
 
+        addition.calculate(arguments);
     }
 
-    private void additionOf(String leftArgument, String rightArgument, String expectedArgument) throws Exception {
+    private void additionOfValuesIsCorrect(String leftArgument, String rightArgument, String expectedArgument) throws Exception {
         Addition addition = new Addition();
         BigDecimal calculate = addition.calculate(new BigDecimal(leftArgument), new BigDecimal(rightArgument));
         BigDecimal expected = new BigDecimal(expectedArgument);
