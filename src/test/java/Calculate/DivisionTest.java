@@ -10,26 +10,28 @@ import java.math.BigDecimal;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
-public class MultiplicationTest implements OperationTest{
+public class DivisionTest implements OperationTest{
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.multiplicationOfValuesIsCorrect("1", "1", "1");
-        this.multiplicationOfValuesIsCorrect("2", "2", "4");
-        this.multiplicationOfValuesIsCorrect("3", "3", "9");
+        this.divisionOfValuesIsCorrect("1", "1", "1");
+        this.divisionOfValuesIsCorrect("2", "2", "1");
+        this.divisionOfValuesIsCorrect("3", "3", "1");
 
-        this.multiplicationOfValuesIsCorrect("0", "0", "0");
+        this.divisionOfValuesIsCorrect("1", "-1", "-1");
+        this.divisionOfValuesIsCorrect("-2", "2", "-1");
+        this.divisionOfValuesIsCorrect("-3", "-3", "1");
 
-        this.multiplicationOfValuesIsCorrect("1", "-1", "-1");
-        this.multiplicationOfValuesIsCorrect("-2", "2", "-4");
-        this.multiplicationOfValuesIsCorrect("-3", "-3", "9");
+        this.divisionOfValuesIsCorrect("2.25", "5", "0.45");
+        this.divisionOfValuesIsCorrect("-3.15", "3", "-1.05");
+        this.divisionOfValuesIsCorrect("1.11111", "1.2", "0.925925");
+    }
 
-        this.multiplicationOfValuesIsCorrect("1.55", "2.45", "3.7975");
-        this.multiplicationOfValuesIsCorrect("-1.15", "-1.15", "1.3225");
-        this.multiplicationOfValuesIsCorrect("1.1255", "3.1255", "3.51775025");
-        this.multiplicationOfValuesIsCorrect("1.111", "3.111", "3.456321");
+    @Test
+    public void invalidArguments() throws Exception {
+        this.failOnTheseArguments("1", "0");
     }
 
     @Test
@@ -47,30 +49,40 @@ public class MultiplicationTest implements OperationTest{
 
     @Test
     public void operatorShouldBeValid() throws Exception {
-        checkOperatorToCalculate("*", true);
+        checkOperatorToCalculate("/", true);
     }
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
         for (String temp : Operators.listOfOperators){
-            if (!temp.equals("*")){
+            if (!temp.equals("/")){
                 checkOperatorToCalculate(temp, false);
             }
         }
     }
 
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
-        Multiplication multiplication = new Multiplication();
+        Division division = new Division();
 
         expectedException.expect(NumberOfParametersException.class);
         expectedException.expectMessage(equalTo("Parameters: " + arguments.length));
 
-        multiplication.calculate(arguments);
+        division.calculate(arguments);
     }
 
-    private void multiplicationOfValuesIsCorrect(String leftArgument, String rightArgument, String expectedValue) throws Exception {
-        Multiplication multiplication = new Multiplication();
-        BigDecimal calculate = multiplication.calculate(new BigDecimal(leftArgument),new BigDecimal(rightArgument));
+    private void failOnTheseArguments(String leftParameter, String rightParameter) throws Exception {
+        Division division = new Division();
+        BigDecimal leftParameterBD = new BigDecimal(leftParameter);
+        BigDecimal rightParameterBD = new BigDecimal(rightParameter);
+
+        expectedException.expect(ArithmeticException.class);
+
+        division.calculate(leftParameterBD, rightParameterBD);
+    }
+
+    private void divisionOfValuesIsCorrect(String leftArgument, String rightArgument, String expectedValue) throws Exception {
+        Division division = new Division();
+        BigDecimal calculate = division.calculate(new BigDecimal(leftArgument),new BigDecimal(rightArgument));
         BigDecimal expected = new BigDecimal(expectedValue);
         String message = "\nExpected: " + expected.toString() + "\nActual: " + calculate.toString();
 
@@ -78,13 +90,13 @@ public class MultiplicationTest implements OperationTest{
     }
 
     private void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
-        Multiplication multiplication = new Multiplication();
+        Division division = new Division();
         String message = "Operator: " + operator;
         if (shouldBeCorrect) {
-            assertTrue(message, multiplication.canCalculate(operator));
+            assertTrue(message, division.canCalculate(operator));
         }
         else {
-            assertFalse(message, multiplication.canCalculate(operator));
+            assertFalse(message, division.canCalculate(operator));
         }
     }
 }

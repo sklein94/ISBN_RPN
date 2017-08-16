@@ -1,19 +1,21 @@
 package Calculate;
 
+import Exceptions.NumberOfParametersException;
+
 import java.math.BigDecimal;
 
 public class Division implements Operation {
 
-    public BigDecimal calculate(BigDecimal... arr) {
-        int length = arr.length;
-        BigDecimal sum = new BigDecimal(0);
-        for (int i = 0; i < length; i++) {
-            sum.subtract(arr[i]);
+    public BigDecimal calculate(BigDecimal... arr) throws Exception{
+        if (arr.length == 2) {
+            return arr[0].divide(arr[1]);
         }
-        return sum;
+        else{
+            throw new NumberOfParametersException("Parameters: " + arr.length);
+        }
     }
 
     public boolean canCalculate(String operator) {
-        return operator.equals("-");
+        return operator.equals("/");
     }
 }

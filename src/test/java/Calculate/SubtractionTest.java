@@ -16,20 +16,20 @@ public class SubtractionTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.subtractionnOfValuesIsCorrect("1", "1", "0");
-        this.subtractionnOfValuesIsCorrect("2", "2", "0");
-        this.subtractionnOfValuesIsCorrect("3", "3", "0");
+        this.subtractionOfValuesIsCorrect("1", "1", "0");
+        this.subtractionOfValuesIsCorrect("2", "2", "0");
+        this.subtractionOfValuesIsCorrect("3", "3", "0");
 
-        this.subtractionnOfValuesIsCorrect("0", "0", "0");
+        this.subtractionOfValuesIsCorrect("0", "0", "0");
 
-        this.subtractionnOfValuesIsCorrect("1", "-1", "2");
-        this.subtractionnOfValuesIsCorrect("-2", "2", "-4");
-        this.subtractionnOfValuesIsCorrect("-3", "-3", "0");
+        this.subtractionOfValuesIsCorrect("1", "-1", "2");
+        this.subtractionOfValuesIsCorrect("-2", "2", "-4");
+        this.subtractionOfValuesIsCorrect("-3", "-3", "0");
 
-        this.subtractionnOfValuesIsCorrect("1.55", "2.45", "-0.9");
-        this.subtractionnOfValuesIsCorrect("-1.15", "-1.15", "0");
-        this.subtractionnOfValuesIsCorrect("1.1255", "3.1255", "-2");
-        this.subtractionnOfValuesIsCorrect("1.111", "3.111", "-2");
+        this.subtractionOfValuesIsCorrect("1.55", "2.45", "-0.9");
+        this.subtractionOfValuesIsCorrect("-1.15", "-1.15", "0");
+        this.subtractionOfValuesIsCorrect("1.1255", "3.1255", "-2");
+        this.subtractionOfValuesIsCorrect("1.111", "3.111", "-2");
     }
 
 
@@ -68,7 +68,7 @@ public class SubtractionTest implements OperationTest{
         subtraction.calculate(arguments);
     }
 
-    private void subtractionnOfValuesIsCorrect(String leftParameter, String rightParameter, String expectedValue) throws Exception {
+    private void subtractionOfValuesIsCorrect(String leftParameter, String rightParameter, String expectedValue) throws Exception {
         Subtraction subtraction = new Subtraction();
         BigDecimal calculate = subtraction.calculate(new BigDecimal(leftParameter), new BigDecimal(rightParameter));
         BigDecimal expected = new BigDecimal(expectedValue);
