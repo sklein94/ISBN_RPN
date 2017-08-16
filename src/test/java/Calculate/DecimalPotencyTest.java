@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
-public class DecimalDecimalPotencyTest implements OperationTest{
+public class DecimalPotencyTest implements OperationTest{
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
@@ -29,6 +29,7 @@ public class DecimalDecimalPotencyTest implements OperationTest{
 
         this.decimalPotencyOfValuesIsCorrect("16","0","1");
         this.decimalPotencyOfValuesIsCorrect("16","1","16");
+        this.decimalPotencyOfValuesIsCorrect("0","0","1");
 
         this.decimalPotencyOfValuesIsCorrect("16","-1","0.0625");
         this.decimalPotencyOfValuesIsCorrect("16","-2","0.00390625");
@@ -38,6 +39,8 @@ public class DecimalDecimalPotencyTest implements OperationTest{
 
         this.decimalPotencyOfValuesIsCorrect("16","-0.25","0.5");
 //        this.decimalPotencyOfValuesIsCorrect("59","-0.236","0.38201368868");
+
+
     }
 
     @Test

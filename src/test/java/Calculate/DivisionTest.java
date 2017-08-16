@@ -27,6 +27,9 @@ public class DivisionTest implements OperationTest{
         this.divisionOfValuesIsCorrect("2.25", "5", "0.45");
         this.divisionOfValuesIsCorrect("-3.15", "3", "-1.05");
         this.divisionOfValuesIsCorrect("1.11111", "1.2", "0.925925");
+
+
+        this.divisionOfValuesIsCorrect("1", "3", "0.3333333333333333333333333333333333333333333333333");
     }
 
     @Test
