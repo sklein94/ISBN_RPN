@@ -16,23 +16,24 @@ public class SubtractionTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.subtractionOfValuesIsCorrect("1", "1", "0");
+        //Normale Rechnungen
         this.subtractionOfValuesIsCorrect("2", "2", "0");
-        this.subtractionOfValuesIsCorrect("3", "3", "0");
 
+        //1 Wert oder beide Werte 0
+        this.subtractionOfValuesIsCorrect("0", "1", "-1");
         this.subtractionOfValuesIsCorrect("0", "0", "0");
+        this.subtractionOfValuesIsCorrect("1", "0", "1");
 
+        //1 Wert oder beide Werte negativ
         this.subtractionOfValuesIsCorrect("1", "-1", "2");
         this.subtractionOfValuesIsCorrect("-2", "2", "-4");
         this.subtractionOfValuesIsCorrect("-3", "-3", "0");
 
-        this.subtractionOfValuesIsCorrect("1.55", "2.45", "-0.9");
-        this.subtractionOfValuesIsCorrect("-1.15", "-1.15", "0");
+        //Kommazahlen
         this.subtractionOfValuesIsCorrect("1.1255", "3.1255", "-2");
-        this.subtractionOfValuesIsCorrect("1.111", "3.111", "-2");
-
         this.subtractionOfValuesIsCorrect("4.3333333333333333333333333333333333333333333333333333333333333333333333","2.3333333333333333333333333333333333333333333333333333333333333333333333","2");
 
+        //Sehr hohe oder sehr niedrige Zahlen
         this.subtractionOfValuesIsCorrect("1E+500", "1E+500", "0");
         this.subtractionOfValuesIsCorrect("3E-500", "1E-500", "2E-500");
     }
