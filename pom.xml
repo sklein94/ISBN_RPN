@@ -13,10 +13,6 @@
             <artifactId>junit</artifactId>
             <version>RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId></groupId>
-            <artifactId></artifactId>
-        </dependency>
     </dependencies>
 
 

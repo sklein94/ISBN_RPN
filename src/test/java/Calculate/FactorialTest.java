@@ -1,37 +1,37 @@
 package Calculate;
 
 import Exceptions.NumberOfParametersException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
 public class FactorialTest implements OperationTest{
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.calculationOf("0", "1");
+        this.factorialOfValuesIsCorrect("0", "1");
 
-        this.calculationOf("1", "1");
-        this.calculationOf("2", "2");
-        this.calculationOf("3", "6");
+        this.factorialOfValuesIsCorrect("1", "1");
+        this.factorialOfValuesIsCorrect("2", "2");
+        this.factorialOfValuesIsCorrect("3", "6");
 
-        this.calculationOf("10", "3628800");
+        this.factorialOfValuesIsCorrect("10", "3628800");
     }
 
     @Test
-    public void valueTooLow() throws Exception{
+    public void invalidValues() throws Exception{
         this.failOnThisArgument("-1");
-        this.failOnThisArgument("-2");
-        this.failOnThisArgument("-10");
-    }
+        this.failOnThisArgument("-10000");
 
-    @Test
-    public void valueIsNotFloat() throws Exception{
-        this.failOnThisArgument("1.1");
-        this.failOnThisArgument("2.5");
-        this.failOnThisArgument("106.453");
+        this.failOnThisArgument("1.5");
+        this.failOnThisArgument("3.67895678");
     }
 
     @Test
@@ -60,30 +60,26 @@ public class FactorialTest implements OperationTest{
         }
     }
 
-    public void failOnThisArgument(String argument){
+    public void failOnThisArgument(String argument) throws Exception{
         Factorial factorial = new Factorial();
-        BigDecimal argumentAsBigDecimal = new BigDecimal(argument);
-        try {
-            factorial.calculate(argumentAsBigDecimal);
-            fail("Es wurde ein ungueltiger Parameter akzeptiert.");
-        }
-        catch (Exception e) {
-        }
+        BigDecimal leftParameterBD = new BigDecimal(argument);
+
+        expectedException.expect(ArithmeticException.class);
+
+        factorial.calculate(leftParameterBD);
     }
 
     public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Factorial factorial = new Factorial();
-        try {
-            factorial.calculate(arguments);
-            fail("Es wurde eine falsche Anzahl an Parametern akzeptiert..");
-        }
-        catch (NumberOfParametersException numberOfParameterException) {
 
-        }
+        expectedException.expect(NumberOfParametersException.class);
+        expectedException.expectMessage(equalTo("Parameters: " + arguments.length));
+
+        factorial.calculate(arguments);
     }
 
 
-    public void calculationOf(String... arguments) throws Exception {
+    public void factorialOfValuesIsCorrect(String... arguments) throws Exception {
         Factorial factorial = new Factorial();
         BigDecimal calculate = factorial.calculate(new BigDecimal(arguments[0]));
         BigDecimal expected = new BigDecimal(arguments[1]);
@@ -91,6 +87,7 @@ public class FactorialTest implements OperationTest{
 
         assertEquals(message, 0, calculate.compareTo(expected));
     }
+
 
     public void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
         Factorial factorial = new Factorial();

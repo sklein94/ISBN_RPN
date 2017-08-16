@@ -1,26 +1,18 @@
 package Calculate;
 
 import Exceptions.NumberOfParametersException;
+import ch.obermuhlner.math.big.BigDecimalMath;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
-public class Potency implements Operation {
+public class DecimalPotency implements Operation {
     public BigDecimal calculate(BigDecimal... arr) throws Exception {
         if (arr.length == 2) {
-            return arr[0].pow(arr[1].intValueExact());
+            return BigDecimalMath.pow(arr[0], arr[1], MathContext.UNLIMITED);
         }
         else {
             throw new NumberOfParametersException("Parameters: " + arr.length);
-        }
-    }
-
-    private boolean isInteger(BigDecimal bd) {
-        try {
-            bd.toBigIntegerExact();
-            return true;
-        }
-        catch (ArithmeticException arithmeticException) {
-            return false;
         }
     }
 
