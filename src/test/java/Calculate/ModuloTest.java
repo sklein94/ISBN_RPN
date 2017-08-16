@@ -1,22 +1,25 @@
 package Calculate;
 
 import Exceptions.NumberOfParametersException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
 public class ModuloTest implements OperationTest{
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void shouldBeCorrect() throws Exception {
-        this.moduloOfValuesIsCorrect("11","5","1");
-        this.moduloOfValuesIsCorrect("105","2","1");
-        this.moduloOfValuesIsCorrect("35","6","5");
-        this.moduloOfValuesIsCorrect("10","5","0");
-        this.moduloOfValuesIsCorrect("10","2","0");
-        this.moduloOfValuesIsCorrect("15","5","0");
+        this.moduloOfValuesIsCorrect("1","1","0");
+        this.moduloOfValuesIsCorrect("10000","1","0");
+        this.moduloOfValuesIsCorrect("10000","10000","0");
+        this.moduloOfValuesIsCorrect("10000","5001","4999");
 
         this.moduloOfValuesIsCorrect("5","3","2");
         this.moduloOfValuesIsCorrect("-5","3","-2");
@@ -25,10 +28,10 @@ public class ModuloTest implements OperationTest{
     }
 
     @Test
-    public void checkFOrInvalidValues() throws Exception{
-        this.failOnTheseArguments("1.1","1");
-        this.failOnTheseArguments("2","1.45");
-        this.failOnTheseArguments("2.5","1.35");
+    public void invalidArguments() throws Exception{
+        this.failOnTheseArguments("1.11133778","1");
+        this.failOnTheseArguments("2","1.45312");
+        this.failOnTheseArguments("2.113225","1.3335");
 
         this.failOnTheseArguments("10","0");
     }
@@ -60,28 +63,23 @@ public class ModuloTest implements OperationTest{
         }
     }
 
-    private void failOnTheseArguments(String leftParameter, String rightParameter){
+    private void failOnTheseArguments(String leftParameter, String rightParameter) throws Exception{
         Modulo modulo = new Modulo();
-        BigDecimal leftParameterBigDecimal = new BigDecimal(leftParameter);
-        BigDecimal rightParameterBigDecimal = new BigDecimal(rightParameter);
-        try{
-            modulo.calculate(leftParameterBigDecimal, rightParameterBigDecimal);
-            fail("Es wurde ein ungueltiger Wert akzeptiert.");
-        }
-        catch (Exception e){
+        BigDecimal leftParameterBD = new BigDecimal(leftParameter);
+        BigDecimal rightParameterBD = new BigDecimal(rightParameter);
 
-        }
+        expectedException.expect(ArithmeticException.class);
+
+        modulo.calculate(leftParameterBD, rightParameterBD);
     }
 
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Modulo modulo = new Modulo();
-        try {
-            modulo.calculate(arguments);
-            fail("Es wurde eine falsche Anzahl an Parametern akzeptiert.");
-        }
-        catch (NumberOfParametersException numberOfParameterException) {
 
-        }
+        expectedException.expect(NumberOfParametersException.class);
+        expectedException.expectMessage(equalTo("Parameters: " + arguments.length));
+
+        modulo.calculate(arguments);
     }
 
     private void moduloOfValuesIsCorrect(String leftParameter, String rightParameter, String expectedValue) throws Exception {
