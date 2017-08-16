@@ -1,13 +1,18 @@
 package Calculate;
 
 import Exceptions.NumberOfParametersException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
 public class SubtractionTest implements OperationTest{
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void shouldBeCorrect() throws Exception {
@@ -42,13 +47,13 @@ public class SubtractionTest implements OperationTest{
 
     @Test
     public void operatorShouldBeValid() throws Exception {
-        checkOperatorToCalculate("/", true);
+        checkOperatorToCalculate("-", true);
     }
 
     @Test
     public void operatorShouldBeInvalid() throws Exception{
         for (String temp : Operators.listOfOperators){
-            if (!temp.equals("/")){
+            if (!temp.equals("-")){
                 checkOperatorToCalculate(temp, false);
             }
         }
@@ -56,13 +61,11 @@ public class SubtractionTest implements OperationTest{
 
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Subtraction subtraction = new Subtraction();
-        try {
-            subtraction.calculate(arguments);
-            fail("Es wurde eine falsche Anzahl an Parametern akzeptiert.");
-        }
-        catch (NumberOfParametersException numberOfParameterException) {
 
-        }
+        expectedException.expect(NumberOfParametersException.class);
+        expectedException.expectMessage(equalTo("Parameters: " + arguments.length));
+
+        subtraction.calculate(arguments);
     }
 
     private void subtractionnOfValuesIsCorrect(String leftParameter, String rightParameter, String expectedValue) throws Exception {

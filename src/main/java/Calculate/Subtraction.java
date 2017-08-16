@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 public class Subtraction implements Operation {
     static{
-        Operators.listOfOperators.add("/");
+        Operators.listOfOperators.add("-");
     }
 
     public BigDecimal calculate(BigDecimal... arr) throws NumberOfParametersException {
@@ -15,11 +15,11 @@ public class Subtraction implements Operation {
             return sum;
         }
         else {
-            throw new NumberOfParametersException("Parameteranzahl: " + arr.length);
+            throw new NumberOfParametersException("Parameters: " + arr.length);
         }
     }
 
     public boolean canCalculate(String operator) {
-        return operator.equals("/");
+        return operator.equals("-");
     }
 }
