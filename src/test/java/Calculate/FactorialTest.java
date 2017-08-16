@@ -31,10 +31,10 @@ public class FactorialTest implements OperationTest{
 
     @Test
     public void invalidValues() throws Exception{
+        //Negative Zahl
         this.failOnThisArgument("-1");
-        this.failOnThisArgument("-10000");
 
-        this.failOnThisArgument("1.5");
+        //Kommazahl
         this.failOnThisArgument("3.67895678");
     }
 

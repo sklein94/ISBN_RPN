@@ -16,15 +16,17 @@ public class ModuloTest implements OperationTest{
 
     @Test
     public void shouldBeCorrect() throws Exception {
+        //Einfache Modulo Operationen
         this.moduloOfValuesIsCorrect("1","1","0");
         this.moduloOfValuesIsCorrect("10000","1","0");
-        this.moduloOfValuesIsCorrect("10000","10000","0");
         this.moduloOfValuesIsCorrect("10000","5001","4999");
 
+        //Ein Wert oder beide Werte negativ
         this.moduloOfValuesIsCorrect("5","3","2");
         this.moduloOfValuesIsCorrect("-5","3","-2");
         this.moduloOfValuesIsCorrect("-5","-3","-2");
 
+        //Sehr hohe Werte
         this.moduloOfValuesIsCorrect("1E+1000","1E+1000","0");
         this.moduloOfValuesIsCorrect("1E+1000","1E+1001","1E1000");
 
@@ -32,10 +34,12 @@ public class ModuloTest implements OperationTest{
 
     @Test
     public void invalidArguments() throws Exception{
+        //Ein Wert oder beide Werte eine Kommazahl
         this.failOnTheseArguments("1.11133778","1");
         this.failOnTheseArguments("2","1.45312");
         this.failOnTheseArguments("2.113225","1.3335");
 
+        //Zweiter Wert 0
         this.failOnTheseArguments("10","0");
     }
 

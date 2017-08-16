@@ -40,6 +40,7 @@ public class DivisionTest implements OperationTest{
 
     @Test
     public void invalidArguments() throws Exception {
+        //Durch 0 teilen
         this.failOnTheseArguments("1", "0");
     }
 
