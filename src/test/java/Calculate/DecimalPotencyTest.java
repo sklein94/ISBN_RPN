@@ -76,6 +76,7 @@ public class DecimalPotencyTest implements OperationTest{
         }
     }
 
+    @Test
     public void operatorIsIncluded() throws Exception {
         for (String temp : Operators.listOfOperatorsWithTwoOperands){
             if (temp.equals(DecimalPotency.operator)){
@@ -85,17 +86,7 @@ public class DecimalPotencyTest implements OperationTest{
         fail("Operator dieser Operation ist nicht in der Liste: " + DecimalPotency.operator);
     }
 
-    public void failOnTheseArguments(String leftParameter, String rightParameter) throws Exception{
-        DecimalPotency decimalPotency = new DecimalPotency();
-        BigDecimal leftParameterBD = new BigDecimal(leftParameter);
-        BigDecimal rightParameterBD = new BigDecimal(rightParameter);
-
-        expectedException.expect(ArithmeticException.class);
-
-        decimalPotency.calculate(leftParameterBD, rightParameterBD);
-    }
-
-    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+    private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         DecimalPotency decimalPotency = new DecimalPotency();
 
         expectedException.expect(NumberOfParametersException.class);
@@ -104,7 +95,7 @@ public class DecimalPotencyTest implements OperationTest{
         decimalPotency.calculate(arguments);
     }
 
-    public void decimalPotencyOfValuesIsCorrect(String leftParameter, String rightParameter, String expectedValue) throws Exception {
+    private void decimalPotencyOfValuesIsCorrect(String leftParameter, String rightParameter, String expectedValue) throws Exception {
         DecimalPotency decimalPotency = new DecimalPotency();
         BigDecimal calculate = decimalPotency.calculate(new BigDecimal(leftParameter), new BigDecimal(rightParameter));
         BigDecimal expected = new BigDecimal(expectedValue);
@@ -113,7 +104,7 @@ public class DecimalPotencyTest implements OperationTest{
         assertEquals(message, 0, calculate.compareTo(expected));
     }
 
-    public void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
+    private void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
         DecimalPotency decimalPotency = new DecimalPotency();
         String message = "Operator: " + operator;
         if (shouldBeCorrect){

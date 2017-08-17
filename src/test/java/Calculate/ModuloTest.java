@@ -70,6 +70,7 @@ public class ModuloTest implements OperationTest{
         }
     }
 
+    @Test
     public void operatorIsIncluded() throws Exception {
         for (String temp : Operators.listOfOperatorsWithTwoOperands){
             if (temp.equals(Modulo.operator)){

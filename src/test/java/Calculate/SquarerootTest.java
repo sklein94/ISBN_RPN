@@ -65,8 +65,9 @@ public class SquarerootTest implements OperationTest {
         }
     }
 
+    @Test
     public void operatorIsIncluded() throws Exception {
-        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : Operators.listOfOperatorsOneOperand){
             if (temp.equals(Squareroot.operator)){
                 return;
             }
@@ -83,7 +84,7 @@ public class SquarerootTest implements OperationTest {
         squareroot.calculate(leftParameterBD);
     }
 
-    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+    private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Squareroot squareroot = new Squareroot();
 
         expectedException.expect(NumberOfParametersException.class);
@@ -92,7 +93,7 @@ public class SquarerootTest implements OperationTest {
         squareroot.calculate(arguments);
     }
 
-    public void SquarerootOfValuesIsCorrect(String... arguments) throws Exception {
+    private void SquarerootOfValuesIsCorrect(String... arguments) throws Exception {
         Squareroot squareroot = new Squareroot();
         BigDecimal calculate = squareroot.calculate(new BigDecimal(arguments[0]));
         BigDecimal expected = new BigDecimal(arguments[1]);
@@ -101,7 +102,7 @@ public class SquarerootTest implements OperationTest {
         assertEquals(message, 0, calculate.compareTo(expected));
     }
 
-    public void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
+    private void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
         Squareroot squareroot = new Squareroot();
         String message = "Operator: " + operator;
         if (shouldBeCorrect) {

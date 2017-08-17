@@ -7,6 +7,9 @@ import java.math.MathContext;
 
 public class Division implements Operation {
     static String operator = "/";
+    static{
+        Operators.listOfOperatorsWithTwoOperands.add(operator);
+    }
 
     public BigDecimal calculate(BigDecimal... arr) throws Exception {
         if (arr.length == 2) {

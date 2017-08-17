@@ -63,8 +63,9 @@ public class SecondFactorialTest implements OperationTest{
         }
     }
 
+    @Test
     public void operatorIsIncluded() throws Exception {
-        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : Operators.listOfOperatorsOneOperand){
             if (temp.equals(SecondFactorial.operator)){
                 return;
             }
@@ -72,7 +73,7 @@ public class SecondFactorialTest implements OperationTest{
         fail("Operator dieser Operation ist nicht in der Liste: " + SecondFactorial.operator);
     }
 
-    public void failOnThisArgument(String argument) throws Exception{
+    private void failOnThisArgument(String argument) throws Exception{
         SecondFactorial secondFactorial = new SecondFactorial();
         BigDecimal leftParameterBD = new BigDecimal(argument);
 
@@ -81,7 +82,7 @@ public class SecondFactorialTest implements OperationTest{
         secondFactorial.calculate(leftParameterBD);
     }
 
-    public void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
+    private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         SecondFactorial secondFactorial = new SecondFactorial();
 
         expectedException.expect(NumberOfParametersException.class);
@@ -91,7 +92,7 @@ public class SecondFactorialTest implements OperationTest{
     }
 
 
-    public void secondFactorialOfValuesIsCorrect(String... arguments) throws Exception {
+    private void secondFactorialOfValuesIsCorrect(String... arguments) throws Exception {
         SecondFactorial secondFactorial = new SecondFactorial();
         BigDecimal calculate = secondFactorial.calculate(new BigDecimal(arguments[0]));
         BigDecimal expected = new BigDecimal(arguments[1]);
@@ -101,7 +102,7 @@ public class SecondFactorialTest implements OperationTest{
     }
 
 
-    public void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
+    private void checkOperatorToCalculate(String operator, boolean shouldBeCorrect) throws Exception {
         SecondFactorial secondFactorial = new SecondFactorial();
         String message = "Operator: " + operator;
         if (shouldBeCorrect) {

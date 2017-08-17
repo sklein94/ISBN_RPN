@@ -63,6 +63,7 @@ public class FactorialTest implements OperationTest{
         }
     }
 
+    @Test
     public void operatorIsIncluded() throws Exception {
         for (String temp : Operators.listOfOperatorsWithTwoOperands){
             if (temp.equals(Factorial.operator)){

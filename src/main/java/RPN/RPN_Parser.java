@@ -56,15 +56,15 @@ public class RPN_Parser {
     }
 
 
-    private boolean allArgumentsValid(String stringToCheck){
+    private boolean allArgumentsValid(String stringToCheck) {
         boolean ok = false;
 
         String[] splittedStringToCheck = stringToCheck.split(" ");
-        for (String temp : splittedStringToCheck){
-            for(String tempOperatorsTwoOperands : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : splittedStringToCheck) {
+            for (String tempOperatorsTwoOperands : Operators.listOfOperatorsWithTwoOperands) {
                 ok = ok || temp.equals(tempOperatorsTwoOperands);
             }
-            for(String tempOperatorsOneOperand : Operators.listOfOperatorsWithTwoOperands){
+            for (String tempOperatorsOneOperand : Operators.listOfOperatorsWithTwoOperands) {
                 ok = ok || temp.equals(tempOperatorsOneOperand);
             }
             ok = ok || this.isNumber(temp);
@@ -73,43 +73,49 @@ public class RPN_Parser {
         return ok;
     }
 
-    private boolean correctNumberAndPositioningOfArguments(String stringToCheck){
+    private boolean correctNumberAndPositioningOfArguments(String stringToCheck) {
         boolean ok = true;
 
-        for (int i = 1; i < stringToCheck.length(); i++){
-            String temp = stringToCheck.substring(0, i);
-            ok = ok && this.hasMoreOperandsThanOperatorsWithTwoArguments(temp);
-            ok = ok && this.hasMoreOrEqualOperandsComparedToOperatorsWithOneArgument(temp);
+        for (int i = 1; i < stringToCheck.length(); i++) {
+            String[] splittedString = stringToCheck.split(" ");
+            String newStringToTest = "";
+            for (String temp : splittedString) {
+                newStringToTest += (temp + " ");
+            }
+            ok = ok && this.hasMoreOperandsThanOperatorsWithTwoArguments(newStringToTest);
+            ok = ok && this.hasMoreOrEqualOperandsComparedToOperatorsWithOneArgument(newStringToTest);
         }
+
+        ok = ok && (this.countNumberOfOperands(stringToCheck) == (this.countNumberOfOperatorsWithTwoOperators(stringToCheck)+1));
 
         return ok;
     }
 
-    private boolean hasMoreOperandsThanOperatorsWithTwoArguments(String stringToCheck){
+    private boolean hasMoreOperandsThanOperatorsWithTwoArguments(String stringToCheck) {
         return this.countNumberOfOperatorsWithTwoOperators(stringToCheck) < this.countNumberOfOperands(stringToCheck);
     }
 
-    private boolean hasMoreOrEqualOperandsComparedToOperatorsWithOneArgument(String stringToCheck){
-        return this.countNumberOfOperatorsWithOneOperator(stringToCheck) >= this.countNumberOfOperands(stringToCheck);
+    private boolean hasMoreOrEqualOperandsComparedToOperatorsWithOneArgument(String stringToCheck) {
+        return this.countNumberOfOperatorsWithOneOperator(stringToCheck) <= this.countNumberOfOperands(stringToCheck);
     }
 
-    private int countNumberOfOperands(String stringToCheck){
+    private int countNumberOfOperands(String stringToCheck) {
         int count = 0;
         String[] splittedString = stringToCheck.split(" ");
-        for(String temp : splittedString){
-            if (this.isNumber(temp)){
+        for (String temp : splittedString) {
+            if (this.isNumber(temp)) {
                 count++;
             }
         }
         return count;
     }
 
-    private int countNumberOfOperatorsWithTwoOperators(String stringToCheck){
+    private int countNumberOfOperatorsWithTwoOperators(String stringToCheck) {
         int count = 0;
         String[] splittedString = stringToCheck.split(" ");
-        for(String temp : splittedString){
-            for (String op : Operators.listOfOperatorsWithTwoOperands){
-                if(temp.equals(op)){
+        for (String temp : splittedString) {
+            for (String op : Operators.listOfOperatorsWithTwoOperands) {
+                if (temp.equals(op)) {
                     count++;
                 }
             }
@@ -117,12 +123,12 @@ public class RPN_Parser {
         return count;
     }
 
-    private int countNumberOfOperatorsWithOneOperator(String stringToCheck){
+    private int countNumberOfOperatorsWithOneOperator(String stringToCheck) {
         int count = 0;
         String[] splittedString = stringToCheck.split(" ");
-        for(String temp : splittedString){
-            for (String op : Operators.listOfOperatorsOneOperand){
-                if(temp.equals(op)){
+        for (String temp : splittedString) {
+            for (String op : Operators.listOfOperatorsOneOperand) {
+                if (temp.equals(op)) {
                     count++;
                 }
             }

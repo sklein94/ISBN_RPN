@@ -20,6 +20,7 @@ public class RPN_ParserTest {
         for (String temp : Operators.listOfOperatorsWithTwoOperands) {
             this.testString(testStringOneOperand + temp, true);
         }
+        System.out.print(Operators.listOfOperatorsWithTwoOperands.get(0));
 
         this.testString("1 2 + 1 2 - /", true);
         this.testString("1 2 3 4 + + +", true);

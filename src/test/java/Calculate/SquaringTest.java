@@ -58,8 +58,9 @@ public class SquaringTest implements OperationTest{
         }
     }
 
+    @Test
     public void operatorIsIncluded() throws Exception {
-        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : Operators.listOfOperatorsOneOperand){
             if (temp.equals(Squaring.operator)){
                 return;
             }
