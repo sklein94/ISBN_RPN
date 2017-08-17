@@ -1,7 +1,6 @@
 package Calculate;
 
 import Exceptions.NumberOfParametersException;
-import ch.obermuhlner.math.big.BigDecimalMath;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -10,10 +9,20 @@ public class Squaring implements Operation {
     static String operator = "sqr";
 
     static{
-        Operators.listOfOperatorsOneOperand.add(Squaring.operator);
+        Operations.listOfOperations.add(new Squaring());
+        Operations.listOfOperators.add(operator);
     }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public int getNumberOfArguments() {
+        return 1;
+    }
+
     public BigDecimal calculate(BigDecimal... arr) throws Exception{
-        if (arr.length == 1) {
+        if (arr.length == getNumberOfArguments()) {
             return arr[0].multiply(arr[0], MathContext.DECIMAL128);
         }
         else{

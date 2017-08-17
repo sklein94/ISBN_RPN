@@ -9,11 +9,20 @@ public class Factorial implements Operation {
     static String operator = "!";
 
     static {
-        Operators.listOfOperatorsWithTwoOperands.add(operator);
+        Operations.listOfOperations.add(new Factorial());
+        Operations.listOfOperators.add(operator);
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public int getNumberOfArguments() {
+        return 1;
     }
 
     public BigDecimal calculate(BigDecimal... arr) throws Exception {
-        if (arr.length == 1) {
+        if (arr.length == getNumberOfArguments()) {
             if (arr[0].toBigIntegerExact().compareTo(new BigInteger("0")) >= 0) {
 
 

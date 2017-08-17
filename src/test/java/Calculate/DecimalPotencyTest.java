@@ -69,7 +69,7 @@ public class DecimalPotencyTest implements OperationTest{
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : Operations.listOfOperators){
             if (!temp.equals(DecimalPotency.operator)){
                 checkOperatorToCalculate(temp, false);
             }
@@ -78,7 +78,7 @@ public class DecimalPotencyTest implements OperationTest{
 
     @Test
     public void operatorIsIncluded() throws Exception {
-        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : Operations.listOfOperators){
             if (temp.equals(DecimalPotency.operator)){
                 return;
             }

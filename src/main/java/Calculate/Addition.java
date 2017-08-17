@@ -7,12 +7,22 @@ import java.math.BigDecimal;
 public class Addition implements Operation {
     static String operator = "+";
 
+
     static{
-        Operators.listOfOperatorsWithTwoOperands.add(operator);
+        Operations.listOfOperations.add(new Addition());
+        Operations.listOfOperators.add(operator);
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public int getNumberOfArguments() {
+        return 2;
     }
 
     public BigDecimal calculate(BigDecimal... arr) throws NumberOfParametersException {
-        if (arr.length == 2) {
+        if (arr.length == getNumberOfArguments()) {
             BigDecimal sum = arr[0].add(arr[1]);
             return sum;
         }

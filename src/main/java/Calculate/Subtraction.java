@@ -7,12 +7,21 @@ import java.math.BigDecimal;
 public class Subtraction implements Operation {
     static String operator = "-";
 
-    static{
-        Operators.listOfOperatorsWithTwoOperands.add(Subtraction.operator);
+    static {
+        Operations.listOfOperations.add(new Subtraction());
+        Operations.listOfOperators.add(operator);
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public int getNumberOfArguments() {
+        return 2;
     }
 
     public BigDecimal calculate(BigDecimal... arr) throws NumberOfParametersException {
-        if (arr.length == 2) {
+        if (arr.length == getNumberOfArguments()) {
             BigDecimal sum = arr[0].subtract(arr[1]);
             return sum;
         }

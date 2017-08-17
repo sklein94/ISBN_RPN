@@ -64,7 +64,7 @@ public class DivisionTest implements OperationTest{
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : Operations.listOfOperators){
             if (!temp.equals(Division.operator)){
                 checkOperatorToCalculate(temp, false);
             }
@@ -73,7 +73,7 @@ public class DivisionTest implements OperationTest{
 
     @Test
     public void operatorIsIncluded() throws Exception {
-        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : Operations.listOfOperators){
             if (temp.equals(Division.operator)){
                 return;
             }

@@ -63,7 +63,7 @@ public class ModuloTest implements OperationTest{
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : Operations.listOfOperators){
             if (!temp.equals(Modulo.operator)){
                 checkOperatorToCalculate(temp, false);
             }
@@ -72,7 +72,7 @@ public class ModuloTest implements OperationTest{
 
     @Test
     public void operatorIsIncluded() throws Exception {
-        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : Operations.listOfOperators){
             if (temp.equals(Modulo.operator)){
                 return;
             }

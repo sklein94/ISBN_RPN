@@ -56,7 +56,7 @@ public class FactorialTest implements OperationTest{
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperatorsOneOperand){
+        for (String temp : Operations.listOfOperators){
             if (!temp.equals(Factorial.operator)){
                 checkOperatorToCalculate(temp, false);
             }
@@ -65,7 +65,7 @@ public class FactorialTest implements OperationTest{
 
     @Test
     public void operatorIsIncluded() throws Exception {
-        for (String temp : Operators.listOfOperatorsWithTwoOperands){
+        for (String temp : Operations.listOfOperators){
             if (temp.equals(Factorial.operator)){
                 return;
             }

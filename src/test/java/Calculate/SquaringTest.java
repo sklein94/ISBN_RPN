@@ -51,7 +51,7 @@ public class SquaringTest implements OperationTest{
 
     @Test
     public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operators.listOfOperatorsOneOperand){
+        for (String temp : Operations.listOfOperators){
             if (!temp.equals(Squaring.operator)){
                 checkOperatorToCalculate(temp, false);
             }
@@ -60,7 +60,7 @@ public class SquaringTest implements OperationTest{
 
     @Test
     public void operatorIsIncluded() throws Exception {
-        for (String temp : Operators.listOfOperatorsOneOperand){
+        for (String temp : Operations.listOfOperators){
             if (temp.equals(Squaring.operator)){
                 return;
             }

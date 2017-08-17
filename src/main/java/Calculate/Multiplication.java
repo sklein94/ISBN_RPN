@@ -8,10 +8,20 @@ public class Multiplication implements Operation {
     static String operator = "*";
 
     static{
-        Operators.listOfOperatorsWithTwoOperands.add(operator);
+        Operations.listOfOperations.add(new Multiplication());
+        Operations.listOfOperators.add(operator);
     }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public int getNumberOfArguments() {
+        return 2;
+    }
+
     public BigDecimal calculate(BigDecimal... arr) throws Exception {
-        if (arr.length == 2){
+        if (arr.length == getNumberOfArguments()){
             return arr[0].multiply(arr[1]);
         }
         else{

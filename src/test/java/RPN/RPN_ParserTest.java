@@ -1,26 +1,37 @@
 package RPN;
 
-import Calculate.Operators;
+import Calculate.Addition;
+import Calculate.Operation;
+import Calculate.Operations;
+import javafx.scene.effect.Reflection;
 import org.junit.Test;
+import org.reflections.Reflections;
 
-import java.math.BigDecimal;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
 public class RPN_ParserTest {
 
     @Test
-    public void checkRPNStringShouldBeValid() {
-        String testStringTwoOperands = "1 2 ";
-        for (String temp : Operators.listOfOperatorsWithTwoOperands) {
-            this.testString(testStringTwoOperands + temp, true);
+    public void checkRPNStringShouldBeValid() throws Exception {
+        Reflections reflections = new Reflections("Calculate");
+        Set<Class<? extends Operation>> classes = reflections.getSubTypesOf(Operation.class);
+        for(Class o : classes){
+            o.newInstance();
         }
-
-        String testStringOneOperand = "4";
-        for (String temp : Operators.listOfOperatorsWithTwoOperands) {
-            this.testString(testStringOneOperand + temp, true);
+        String testString = " ";
+        for (Object temp : Operations.listOfOperations) {
+            Operation o = (Operation) temp;
+            if (o.getNumberOfArguments() == 2){
+                testString = "1 2 ";
+            }
+            else if (o.getNumberOfArguments() == 1){
+                testString = "16 ";
+            }
+            testString += o.getOperator();
+            this.testString(testString, true);
         }
-        System.out.print(Operators.listOfOperatorsWithTwoOperands.get(0));
 
         this.testString("1 2 + 1 2 - /", true);
         this.testString("1 2 3 4 + + +", true);
@@ -40,10 +51,10 @@ public class RPN_ParserTest {
 
     @Test
     public void checkRPNStringInvalidCharacters() {
-        this.testString("1 2 + D", false);
-        this.testString("1 2 + #asdf", false);
-        this.testString("1 2 + srqt", false);
-        this.testString("1 2 + srttqq", false);
+        this.testString("1 2 + D +", false);
+        this.testString("1 2 + #asdf +", false);
+        this.testString("1 2 + srqt +", false);
+        this.testString("1 2 + srttqq +", false);
     }
 
     @Test
@@ -68,7 +79,7 @@ public class RPN_ParserTest {
 
 
     private void testString(String stringToTest, boolean shouldBeCorrect) {
-        RPN_Parser rpnTestStringToTest = new RPN_Parser(stringToTest);
+        RPN_Parser rpnTestStringToTest = new RPN_Parser();
         if (shouldBeCorrect) {
             assertTrue("Fehler beim Testen von: '" + stringToTest, rpnTestStringToTest.stringIsValidToParse(stringToTest));
         }

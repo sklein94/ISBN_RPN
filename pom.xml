@@ -14,13 +14,14 @@
             <version>RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>big-math</groupId>
-            <artifactId>big-math</artifactId>
-        </dependency>
-        <dependency>
             <groupId>ch.obermuhlner</groupId>
             <artifactId>big-math</artifactId>
             <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.11</version>
         </dependency>
     </dependencies>
 

@@ -10,11 +10,20 @@ public class Squareroot implements Operation {
     static String operator = "sqrt";
 
     static {
-        Operators.listOfOperatorsOneOperand.add(Squareroot.operator);
+        Operations.listOfOperations.add(new Squareroot());
+        Operations.listOfOperators.add(operator);
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public int getNumberOfArguments() {
+        return 1;
     }
 
     public BigDecimal calculate(BigDecimal... arr) throws Exception {
-        if (arr.length == 1) {
+        if (arr.length == getNumberOfArguments()) {
             return BigDecimalMath.sqrt(arr[0], MathContext.UNLIMITED);
         }
         else {
