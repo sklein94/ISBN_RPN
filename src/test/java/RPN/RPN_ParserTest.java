@@ -4,7 +4,9 @@ import Calculate.Addition;
 import Calculate.Operation;
 import Calculate.Operations;
 import javafx.scene.effect.Reflection;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.reflections.Reflections;
 
 import java.util.Set;
@@ -12,6 +14,8 @@ import java.util.Set;
 import static org.junit.Assert.*;
 
 public class RPN_ParserTest {
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void checkRPNStringShouldBeValid() throws Exception {
@@ -20,18 +24,19 @@ public class RPN_ParserTest {
         for(Class o : classes){
             o.newInstance();
         }
-        String testString = " ";
-        for (Object temp : Operations.listOfOperations) {
-            Operation o = (Operation) temp;
-            if (o.getNumberOfArguments() == 2){
-                testString = "1 2 ";
-            }
-            else if (o.getNumberOfArguments() == 1){
-                testString = "16 ";
-            }
-            testString += o.getOperator();
-            this.testString(testString, true);
-        }
+
+        this.testString("1 2 +", true);
+        this.testString("1 2 -", true);
+        this.testString("1 2 *", true);
+        this.testString("1 2 /", true);
+
+        this.testString("1 2 pow", true);
+        this.testString("2 1 %", true);
+
+        this.testString("1 sqr", true);
+        this.testString("4 sqrt", true);
+        this.testString("1 !", true);
+        this.testString("1 fac", true);
 
         this.testString("1 2 + 1 2 - /", true);
         this.testString("1 2 3 4 + + +", true);
@@ -65,18 +70,16 @@ public class RPN_ParserTest {
     }
 
     @Test
-    public void checkRPNNumberOfOperandsFunctionCorrect() {
+    public void shouldThrowExceptionOnTheseStrings() throws Exception{
+        this.testForException("+ 1 2");
+        this.testForException("+ 2");
+        this.testForException("1 2 - -");
     }
 
-
-    @Test
-    public void checkRPNNumberOfOperantorsWithTwoOperantsFunctionCorrect() {
+    private void testForException(String stringToCheck){
+        this.expectedException.expect(NumberFormatException.class);
+        RPN_Parser.parseString(stringToCheck);
     }
-
-    @Test
-    public void checkRPNNumberOfOperantorsWithOneOperantFunctionCorrect() {
-    }
-
 
     private void testString(String stringToTest, boolean shouldBeCorrect) {
         RPN_Parser rpnTestStringToTest = new RPN_Parser();

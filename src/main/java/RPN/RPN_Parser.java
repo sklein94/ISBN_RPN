@@ -20,18 +20,19 @@ public class RPN_Parser {
     }
 
     private boolean correctNumberAndPositioningOfArguments(String[] argumentList) {
-        boolean ok = true;
+        boolean ok = false;
 
-        /*for (int i = 0; i < argumentList.length; i++) {
-            String subString = "";
-            for (int b = 0; b < i; b++) {
-                subString += (argumentList[b] + " ");
+        if (argumentList.length > 0) {
+            ok = true;
+            for (int i = 0; i < argumentList.length; i++) {
+                String[] temp = new String[i + 1];
+                for (int b = 0; b <= i; b++) {
+                    temp[b] = argumentList[b];
+                }
+                ok = ok && (this.numberOfOperands(temp) > (this.numberOfOperators(temp, 2)));
+                ok = ok && ((this.numberOfOperands(temp) > 0) || (this.numberOfOperators(temp, 1) == 0));
             }
-            String[] subarray = subString.split(" ");
-            ok = ok && this.numberOfArgumentsOk(subarray);
-        }*/
-
-        //Implementierung fehlt hier
+        }
 
 
         return ok;
@@ -40,15 +41,6 @@ public class RPN_Parser {
     private boolean numberOfArgumentsOk(String[] argumentList) {
         boolean ok = this.numberOfOperands(argumentList) == (this.numberOfOperators(argumentList, 2) + 1);
         ok = ok && ((this.numberOfOperands(argumentList) > 0) || (this.numberOfOperators(argumentList, 1) == 0));
-
-       /* for (String s : argumentList){
-            System.out.print(s+ " ");
-        }
-        System.out.println();
-
-        System.out.println(this.numberOfOperators(argumentList, 1));
-        System.out.println(this.numberOfOperators(argumentList, 2));
-        System.out.println(this.numberOfOperands(argumentList));*/
 
         return ok;
     }
@@ -109,12 +101,12 @@ public class RPN_Parser {
         return ok;
     }
 
-    public boolean isNumber(String input) {
+    private boolean isNumber(String input) {
         return this.isInteger(input) || this.isDouble(input);
     }
 
 
-    public boolean isInteger(String input) {
+    private boolean isInteger(String input) {
         try {
             Integer.parseInt(input);
             return true;
@@ -127,7 +119,7 @@ public class RPN_Parser {
         }
     }
 
-    public boolean isDouble(String input) {
+    private boolean isDouble(String input) {
         try {
             Double.parseDouble(input);
             return true;
@@ -138,5 +130,13 @@ public class RPN_Parser {
         catch (NullPointerException e) {
             return false;
         }
+    }
+
+    public static String[] parseString(String stringToParse) throws NumberFormatException{
+        RPN_Parser rpn = new RPN_Parser();
+        if (rpn.stringIsValidToParse(stringToParse)) {
+            System.out.println("string");
+            return stringToParse.split(" ");
+        } else throw new NumberFormatException("Ungueltige (Anzahl) Parameter im String: " + stringToParse);
     }
 }
