@@ -62,24 +62,6 @@ public class DivisionTest implements OperationTest{
         checkOperatorToCalculate(Division.operator, true);
     }
 
-    @Test
-    public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (!temp.equals(Division.operator)){
-                checkOperatorToCalculate(temp, false);
-            }
-        }
-    }
-
-    @Test
-    public void operatorIsIncluded() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (temp.equals(Division.operator)){
-                return;
-            }
-        }
-        fail("Operator dieser Operation ist nicht in der Liste: " + Division.operator);
-    }
 
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Division division = new Division();

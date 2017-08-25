@@ -49,24 +49,6 @@ public class SquaringTest implements OperationTest{
         checkOperatorToCalculate(Squaring.operator, true);
     }
 
-    @Test
-    public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (!temp.equals(Squaring.operator)){
-                checkOperatorToCalculate(temp, false);
-            }
-        }
-    }
-
-    @Test
-    public void operatorIsIncluded() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (temp.equals(Squaring.operator)){
-                return;
-            }
-        }
-        fail("Operator dieser Operation ist nicht in der Liste: " + Squaring.operator);
-    }
 
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Squaring squaring = new Squaring();

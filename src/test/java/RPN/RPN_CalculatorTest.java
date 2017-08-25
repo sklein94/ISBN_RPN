@@ -4,7 +4,6 @@ import Calculate.Operation;
 import org.junit.Test;
 import org.reflections.Reflections;
 
-import java.math.BigDecimal;
 import java.util.Set;
 
 import static org.junit.Assert.*;

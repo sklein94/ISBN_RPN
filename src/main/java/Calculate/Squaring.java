@@ -8,11 +8,6 @@ import java.math.MathContext;
 public class Squaring implements Operation {
     static String operator = "sqr";
 
-    static{
-        Operations.listOfOperations.add(new Squaring());
-        Operations.listOfOperators.add(operator);
-    }
-
     public String getOperator() {
         return operator;
     }

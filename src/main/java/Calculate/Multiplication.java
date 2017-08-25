@@ -7,11 +7,6 @@ import java.math.BigDecimal;
 public class Multiplication implements Operation {
     static String operator = "*";
 
-    static{
-        Operations.listOfOperations.add(new Multiplication());
-        Operations.listOfOperators.add(operator);
-    }
-
     public String getOperator() {
         return operator;
     }

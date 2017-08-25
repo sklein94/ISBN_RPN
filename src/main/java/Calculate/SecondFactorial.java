@@ -8,11 +8,6 @@ import java.math.BigDecimal;
 public class SecondFactorial implements Operation {
     static String operator = "fac";
 
-    static {
-        Operations.listOfOperations.add(new SecondFactorial());
-        Operations.listOfOperators.add(operator);
-    }
-
     public String getOperator() {
         return operator;
     }

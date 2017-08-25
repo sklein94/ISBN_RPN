@@ -8,10 +8,6 @@ import java.math.MathContext;
 
 public class DecimalPotency implements Operation {
     static String operator = "pow";
-    static{
-        Operations.listOfOperations.add(new DecimalPotency());
-        Operations.listOfOperators.add(operator);
-    }
 
     public String getOperator() {
         return operator;

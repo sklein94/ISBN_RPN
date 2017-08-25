@@ -9,11 +9,6 @@ import java.math.MathContext;
 public class Squareroot implements Operation {
     static String operator = "sqrt";
 
-    static {
-        Operations.listOfOperations.add(new Squareroot());
-        Operations.listOfOperators.add(operator);
-    }
-
     public String getOperator() {
         return operator;
     }

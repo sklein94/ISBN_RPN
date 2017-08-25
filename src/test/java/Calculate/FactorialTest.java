@@ -54,25 +54,6 @@ public class FactorialTest implements OperationTest{
         checkOperatorToCalculate(Factorial.operator, true);
     }
 
-    @Test
-    public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (!temp.equals(Factorial.operator)){
-                checkOperatorToCalculate(temp, false);
-            }
-        }
-    }
-
-    @Test
-    public void operatorIsIncluded() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (temp.equals(Factorial.operator)){
-                return;
-            }
-        }
-        fail("Operator dieser Operation ist nicht in der Liste: " + Factorial.operator);
-    }
-
     public void failOnThisArgument(String argument) throws Exception{
         Factorial factorial = new Factorial();
         BigDecimal leftParameterBD = new BigDecimal(argument);

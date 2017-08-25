@@ -56,24 +56,6 @@ public class AdditionTest implements OperationTest{
         checkOperatorToCalculate(Addition.operator, true);
     }
 
-    @Test
-    public void operatorShouldBeInvalid() throws Exception{
-        for (String temp : Operations.listOfOperators){
-            if (!temp.equals(Addition.operator)){
-                checkOperatorToCalculate(temp, false);
-            }
-        }
-    }
-
-    @Test
-    public void operatorIsIncluded() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (temp.equals(Addition.operator)){
-                return;
-            }
-        }
-        fail("Operator dieser Operation ist nicht in der Liste: " + Addition.operator);
-    }
 
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Addition addition = new Addition();

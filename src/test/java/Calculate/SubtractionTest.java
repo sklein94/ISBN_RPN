@@ -56,25 +56,6 @@ public class SubtractionTest implements OperationTest{
         checkOperatorToCalculate(Subtraction.operator, true);
     }
 
-    @Test
-    public void operatorShouldBeInvalid() throws Exception{
-        for (String temp : Operations.listOfOperators){
-            if (!temp.equals(Subtraction.operator)){
-                checkOperatorToCalculate(temp, false);
-            }
-        }
-    }
-
-    @Test
-    public void operatorIsIncluded() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (temp.equals(Subtraction.operator)){
-                return;
-            }
-        }
-        fail("Operator dieser Operation ist nicht in der Liste: " + Subtraction.operator);
-    }
-
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Subtraction subtraction = new Subtraction();
 

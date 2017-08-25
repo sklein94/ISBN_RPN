@@ -8,11 +8,6 @@ import java.math.BigInteger;
 public class Modulo implements Operation {
     static String operator = "%";
 
-    static{
-        Operations.listOfOperations.add(new Modulo());
-        Operations.listOfOperators.add(operator);
-    }
-
     public String getOperator() {
         return operator;
     }

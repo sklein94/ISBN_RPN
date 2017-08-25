@@ -7,12 +7,6 @@ import java.math.BigDecimal;
 public class Addition implements Operation {
     static String operator = "+";
 
-
-    static{
-        Operations.listOfOperations.add(new Addition());
-        Operations.listOfOperators.add(operator);
-    }
-
     public String getOperator() {
         return operator;
     }

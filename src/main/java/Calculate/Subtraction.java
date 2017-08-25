@@ -7,11 +7,6 @@ import java.math.BigDecimal;
 public class Subtraction implements Operation {
     static String operator = "-";
 
-    static {
-        Operations.listOfOperations.add(new Subtraction());
-        Operations.listOfOperators.add(operator);
-    }
-
     public String getOperator() {
         return operator;
     }

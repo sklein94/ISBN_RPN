@@ -1,9 +1,6 @@
 package RPN;
 
-import Calculate.Addition;
 import Calculate.Operation;
-import Calculate.Operations;
-import javafx.scene.effect.Reflection;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,11 +16,6 @@ public class RPN_ParserTest {
 
     @Test
     public void checkRPNStringShouldBeValid() throws Exception {
-        Reflections reflections = new Reflections("Calculate");
-        Set<Class<? extends Operation>> classes = reflections.getSubTypesOf(Operation.class);
-        for(Class o : classes){
-            o.newInstance();
-        }
 
         this.testString("1 2 +", true);
         this.testString("1 2 -", true);

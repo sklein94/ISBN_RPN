@@ -55,24 +55,6 @@ public class MultiplicationTest implements OperationTest{
         checkOperatorToCalculate(Multiplication.operator, true);
     }
 
-    @Test
-    public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (!temp.equals(Multiplication.operator)){
-                checkOperatorToCalculate(temp, false);
-            }
-        }
-    }
-
-    @Test
-    public void operatorIsIncluded() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (temp.equals(Multiplication.operator)){
-                return;
-            }
-        }
-        fail("Operator dieser Operation ist nicht in der Liste: " + Multiplication.operator);
-    }
 
     private void failOnThisNumberOfArguments(BigDecimal... arguments) throws Exception {
         Multiplication multiplication = new Multiplication();

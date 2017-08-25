@@ -1,14 +1,14 @@
 package RPN;
 
 import Calculate.Operation;
-import Calculate.Operations;
 
-import java.util.Stack;
-
-import static java.lang.Math.pow;
-import static jdk.nashorn.internal.objects.NativeMath.sqrt;
+import java.math.BigDecimal;
+import java.util.ServiceLoader;
 
 public class RPN_Parser {
+
+    private static ServiceLoader<Operation> services = ServiceLoader.load(Operation.class);
+
     boolean stringIsValidToParse(String stringToCheck) {
         String[] argumentList = stringToCheck.split(" ");
         boolean ok = true;
@@ -72,7 +72,7 @@ public class RPN_Parser {
     }
 
     private int getArgumentNumber(String stringToCheck) {
-        for (Operation op : Operations.listOfOperations) {
+        for (Operation op : services) {
             if (op.getOperator().equals(stringToCheck)) {
                 return op.getNumberOfArguments();
             }
@@ -94,7 +94,7 @@ public class RPN_Parser {
 
     private boolean isOperator(String stringToCheck) {
         boolean ok = false;
-        for (Operation op : Operations.listOfOperations) {
+        for (Operation op : services) {
             String operator = op.getOperator();
             ok = ok || operator.equals(stringToCheck);
         }
@@ -102,35 +102,15 @@ public class RPN_Parser {
     }
 
     private boolean isNumber(String input) {
-        return this.isInteger(input) || this.isDouble(input);
+        try{
+            new BigDecimal(input);
+        }
+        catch (NumberFormatException numberFormatException){
+            return false;
+        }
+        return true;
     }
 
-
-    private boolean isInteger(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        }
-        catch (NumberFormatException e) {
-            return false;
-        }
-        catch (NullPointerException e) {
-            return false;
-        }
-    }
-
-    private boolean isDouble(String input) {
-        try {
-            Double.parseDouble(input);
-            return true;
-        }
-        catch (NumberFormatException e) {
-            return false;
-        }
-        catch (NullPointerException e) {
-            return false;
-        }
-    }
 
     public static String[] parseString(String stringToParse) throws NumberFormatException{
         RPN_Parser rpn = new RPN_Parser();

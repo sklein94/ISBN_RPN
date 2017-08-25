@@ -8,11 +8,6 @@ import java.math.BigInteger;
 public class Factorial implements Operation {
     static String operator = "!";
 
-    static {
-        Operations.listOfOperations.add(new Factorial());
-        Operations.listOfOperators.add(operator);
-    }
-
     public String getOperator() {
         return operator;
     }

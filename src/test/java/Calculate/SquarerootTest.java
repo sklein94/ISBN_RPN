@@ -56,24 +56,6 @@ public class SquarerootTest implements OperationTest {
         checkOperatorToCalculate(Squareroot.operator, true);
     }
 
-    @Test
-    public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operations.listOfOperators) {
-            if (!temp.equals(Squareroot.operator)) {
-                checkOperatorToCalculate(temp, false);
-            }
-        }
-    }
-
-    @Test
-    public void operatorIsIncluded() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (temp.equals(Squareroot.operator)){
-                return;
-            }
-        }
-        fail("Operator dieser Operation ist nicht in der Liste: " + Squareroot.operator);
-    }
 
     private void failOnThisArgument(String leftParameter) throws Exception {
         Squareroot squareroot = new Squareroot();

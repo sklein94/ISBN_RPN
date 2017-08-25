@@ -61,24 +61,6 @@ public class ModuloTest implements OperationTest{
         checkOperatorToCalculate(Modulo.operator, true);
     }
 
-    @Test
-    public void operatorShouldBeInvalid() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (!temp.equals(Modulo.operator)){
-                checkOperatorToCalculate(temp, false);
-            }
-        }
-    }
-
-    @Test
-    public void operatorIsIncluded() throws Exception {
-        for (String temp : Operations.listOfOperators){
-            if (temp.equals(Modulo.operator)){
-                return;
-            }
-        }
-        fail("Operator dieser Operation ist nicht in der Liste: " + Modulo.operator);
-    }
 
     private void failOnTheseArguments(String leftParameter, String rightParameter) throws Exception{
         Modulo modulo = new Modulo();

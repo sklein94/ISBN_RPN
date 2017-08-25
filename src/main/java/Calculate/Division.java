@@ -7,10 +7,6 @@ import java.math.MathContext;
 
 public class Division implements Operation {
     static String operator = "/";
-    static{
-        Operations.listOfOperations.add(new Division());
-        Operations.listOfOperators.add(operator);
-    }
 
     public  String getOperator() {
         return operator;
