@@ -135,7 +135,6 @@ public class RPN_Parser {
     public static String[] parseString(String stringToParse) throws NumberFormatException{
         RPN_Parser rpn = new RPN_Parser();
         if (rpn.stringIsValidToParse(stringToParse)) {
-            System.out.println("string");
             return stringToParse.split(" ");
         } else throw new NumberFormatException("Ungueltige (Anzahl) Parameter im String: " + stringToParse);
     }
